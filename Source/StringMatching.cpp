@@ -2,9 +2,6 @@
 #include <string.h>
 #include <stdio.h>
 
-
-
-
 int Brute_force_string_match(char pat[], char txt[])
 {
     int M = strlen(pat);
@@ -24,9 +21,6 @@ int Brute_force_string_match(char pat[], char txt[])
     }
     return -1;
 }
-
-
-
 
 int Rabin_Karp_string_match(char pat[], char txt[], int q,int d) {
     int M = strlen(pat);
@@ -84,12 +78,6 @@ int Rabin_Karp_string_match(char pat[], char txt[], int q,int d) {
     }
     return -1;
 }
-
-
-
-
-
-
 
 // Prints occurrences of txt[] in pat[] 
 int KMP_String_match(char pat[], char txt[])

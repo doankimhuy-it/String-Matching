@@ -1,4 +1,3 @@
-#pragma once
 #ifndef _STRINGMATCHING_H_
 #define _STRINGMATCHING_H_
 
