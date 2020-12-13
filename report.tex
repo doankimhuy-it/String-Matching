@@ -2,18 +2,162 @@
 \usepackage[margin=0.5in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[utf8]{vntex}
-\usepackage{amsfonts}
-\usepackage{amsmath}
+\usepackage{blindtext, amsfonts, amsmath, listings, color}
 
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tvietlistings}	
 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{Ao}{rgb}{0.55, 0.71, 0.0}
+% Phần biểu diễn
+\lstset{frame=tb,
+	language=TeX,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	basicstyle={\small\ttfamily},
+	firstnumber=0,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	captionpos=t,
+	breakatwhitespace=true,
+	tabsize=2,
+	moredelim=**[is][\color{red}]{@}{@},
+	moredelim=**[is][\color{Ao}]{!}{!},
+}
+
+\title{Sections and Chapters}
+\author{Gubert Farnsworth}
+\date{\today}
 \begin{document}
-\part*{STRING MATCHING}
-\section{String Matching Problem}
-\section{String Matching Algorithms}
+	\maketitle
+	\part*{STRING MATCHING}
+	
+	\section{String Matching Problem}
+	Tìm kiếm chuỗi hiện diện trong cuộc sống, ví dụ như: tìm tên thầy dạy DSA trong danh sách giảng viên,
+	tìm tên trong bảng điểm,.. hoặc trong khoa học, như là tìm liệu cấu trúc ADN của virus này có trong virus khác hay không,
+	
+	\section{String Matching Algorithms}
+	\begin{enumerate}
+		\item Brute-force 
+		
+			Giải thuật Brute-Force, hay còn gọi là vét cạn, 
+			là thuật toán đơn giản nhất trong các thuật toán 
+			tìm kiếm chuỗi con \textit{pattern} 
+			trong chuỗi cha \textit{text}.
 
-\part*{PROGRAMING}
-    Crossword game
+			Có thể giải thích đơn giản, giải thuật Brute-Force 
+			so sánh lần lượt mỗi chuỗi con \textit{subtext} của \textit{text} 
+			có cùng chiều dài với \textit{pattern} với \textit{pattern}, 
+			nếu tìm được, trả về kết quả là vị trí được tìm thấy; khi không 
+			tìm được kết quả mong muốn, trả về giá trị quy ước là không tìm thấy.
 
-\setcounter{section}{0}
-\section{EXPLORE}
+			Trong ví dụ sau, ta sẽ làm rõ cách hoạt động của giải thuật này:\\
+			\textit{text} \hspace*{7mm}= \verb|Let them go!| \\
+			\textit{pattern} \hspace*{0.1mm} = \verb|them| 
+			% L
+			\vspace*{4mm}
+			\hrule
+			\textcolor{red}{L}et them go!\\
+			\textcolor{red}{t}hem
+
+			% Le
+			\vspace*{2mm}
+			\hrule
+			L\textcolor{red}{e}t them go!\\
+			\textcolor{white}{L}\textcolor{red}{t}hem
+			
+			% Let
+			\vspace*{2mm}
+			\hrule
+			Le\textcolor{ForestGreen}{t} them go!\\
+			\textcolor{white}{Le}\textcolor{ForestGreen}{t}hem
+			
+			% Let 
+			\vspace*{2mm}
+			\hrule
+			Le\textcolor{ForestGreen}{t}\textcolor{red}{\textvisiblespace}them go!\\
+			\textcolor{white}{Le}\textcolor{ForestGreen}{t}\textcolor{red}{h}em
+
+			% Let t
+			\vspace*{2mm}
+			\hrule
+			Let \textcolor{ForestGreen}{t}hem go!\\
+			\textcolor{white}{Let }\textcolor{ForestGreen}{t}hem
+
+			% Let th
+			\vspace*{2mm}
+			\hrule
+			Let \textcolor{ForestGreen}{th}em go!\\
+			\textcolor{white}{Let }\textcolor{ForestGreen}{th}em
+			
+			% Let the
+			\vspace*{2mm}
+			\hrule
+			Let \textcolor{ForestGreen}{the}m go!\\
+			\textcolor{white}{Let }\textcolor{ForestGreen}{the}m
+						
+			% Let them
+			\vspace*{2mm}
+			\hrule
+			Let \textcolor{ForestGreen}{them} go!\\
+			\textcolor{white}{Let }\textcolor{ForestGreen}{them}
+			\vspace*{2mm}
+			\hrule
+
+			Ta tìm thấy chuỗi pattern tại vị trí thứ 4!
+			
+			Từ ví dụ trên, ta thiết kế mã giả cho giải thuật Brute-Force:
+
+			\begin{lstlisting}
+				vị trí tìm thấy = -1
+				subtext = chuỗi con đầu text có độ dài bằng pattern
+				while (chưa tìm thấy hoặc chưa tới cuối text)
+					if (từng ký tự của subtext = pattern):
+						trả về vị trí
+					else:
+						dịch chuyển chuỗi con subtext trong text sang phải 1 chữ cái
+				Trả về: vị trí tìm thấy
+					\end{lstlisting}
+			
+			Với chuỗi \textit{pattern} có độ dài là M, chuỗi \textit{text} có độ dài là N \\
+			Phân tích độ phức tạp của thuật toán trong trường hợp xấu nhất:
+			\begin{itemize}
+				\item Mỗi lần so sánh với \textit{subtext}, \textit{pattern} phải so sánh nhiều nhất là M lần (trong trường hợp cả M - 1 ký tự đầu đều đúng).
+				\item Có tất cả N - M + 1 chuỗi, vậy số chuỗi cần so sánh nhiều nhất là N - M + 1 \textit{subtext} như vậy (trong trường hợp N - M + 2 chuỗi \textit{subext} đầu không trùng với \textit{pattern})
+				
+				$\to$ Cần M(N - M + 1) lần. Vì duyệt tới cuối mảng nên đây là trường hợp tìm thấy ở cuối mảng, hoặc không tìm thấy\\
+				$\to$ Cận trên $O(MN)$ (vì N > N - M + 1). \\
+				$\to$ Cấp phát bộ nhớ: 0.
+			\end{itemize}
+
+			Phân tích độ phức tạp của thuật toán trong trường hợp tốt nhất:
+			\begin{itemize}
+				\item Trong trường hợp tốt nhất, có thể thấy \textit{pattern} chính là \textit{subtext} đầu tiên của \textit{text}.
+				\item Như vậy, chỉ cần tốn M lần so sánh các ký tự.
+				
+				$\to$ Cần M lần. \\
+				$\to$ Cận trên $O(M)$. \\
+				$\to$ Cấp phát bộ nhớ: 0.
+			\end{itemize}
+			
+			Đánh giá:
+			\begin{itemize}
+				\item Dễ hiểu, thuật toán này chỉ duyệt từ đầu đến cuối, so sánh tuần tự từng chuỗi con với chuỗi cần tìm kiếm.
+				\item Không cần bước tiền xử lý (như các thuật toán được trình bày bên dưới).
+				\item Độ phức tạp $O(MN)$. Không cần xin thêm bộ nhớ.
+			\end{itemize}
+	\end{enumerate}
+	
+	\part*{PROGRAMING}
+	\label{Crossword game}(abc)
+	
+	
+	\setcounter{section}{0}
+	\section{Introduce}
+	\section{Example Test}
+	
 \end{document}
