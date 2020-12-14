@@ -25,8 +25,7 @@
 	captionpos=t,
 	breakatwhitespace=true,
 	tabsize=2,
-	moredelim=**[is][\color{red}]{@}{@},
-	moredelim=**[is][\color{Ao}]{!}{!},
+	moredelim=**[is][\color{Ao}]{@}{@}
 }
 
 \title{Sections and Chapters}
@@ -133,6 +132,12 @@
 			Từ ví dụ trên, ta thiết kế mã giả cho giải thuật Brute-Force:
 
 			\begin{lstlisting}
+			function: Brute-Force String Matching
+			text: chuỗi cha 
+			pattern: chuỗi cần tìm 
+			subtext: 1 đoạn thân của chuỗi cha có cùng chiều dài với pattern.
+			Trả về: vị trí tìm thấy đầu tiên hoặc -1 nếu không tìm thấy.
+			
 				vị trí tìm thấy = -1
 				subtext = chuỗi con đầu text có độ dài bằng pattern
 				while (chưa tìm thấy hoặc chưa tới cuối text)
@@ -147,7 +152,7 @@
 			Phân tích độ phức tạp của thuật toán trong trường hợp xấu nhất:
 			\begin{itemize}
 				\item Mỗi lần so sánh với \textit{subtext}, \textit{pattern} phải so sánh nhiều nhất là M lần (trong trường hợp cả M - 1 ký tự đầu đều đúng).
-				\item Có tất cả N - M + 1 chuỗi, vậy số chuỗi cần so sánh nhiều nhất là N - M + 1 \textit{subtext} như vậy (trong trường hợp N - M + 2 chuỗi \textit{subext} đầu không trùng với \textit{pattern})
+				\item Có tất cả N - M + 1 chuỗi, vậy số chuỗi cần so sánh nhiều nhất là N - M + 1 \textit{subtext} như vậy (trong trường hợp N - M + 2 chuỗi \textit{subtext} đầu không trùng với \textit{pattern})
 				
 				$\to$ Cần M(N - M + 1) lần. Vì duyệt tới cuối mảng nên đây là trường hợp tìm thấy ở cuối mảng, hoặc không tìm thấy\\
 				$\to$ Cận trên $O(MN)$ (vì N > N - M + 1). \\
@@ -182,68 +187,190 @@
 
 			Để dễ hiểu, ta xét 1 ví dụ như sau: 
 			
-			\textit{text} \hspace*{6mm}= abacababd\\
-			\textit{pattern} \hspace*{0.1mm}= abab
+			\textit{text} \hspace*{6mm}= ababcababd\\
+			\textit{pattern} \hspace*{0.1mm}= ababd
 			
 			% L
 			\vspace*{4mm}
 			\hrule
-			\textcolor{ForestGreen}{a}bacababd\\
-			\textcolor{ForestGreen}{a}bab \hspace*{3cm} // So sánh như Brute-Force
+			\textcolor{ForestGreen}{a}babcababd\\
+			\textcolor{ForestGreen}{a}babd \hspace*{1.8cm} // So sánh như Brute-Force
 
 			% Le
 			\vspace*{2mm}
 			\hrule
-			\textcolor{ForestGreen}{ab}acababd\\
-			\textcolor{ForestGreen}{ab}ab
+			\textcolor{ForestGreen}{ab}abcababd\\
+			\textcolor{ForestGreen}{ab}abd
 			
 			% Le
 			\vspace*{2mm}
 			\hrule
-			\textcolor{ForestGreen}{aba}cababd\\
-			\textcolor{ForestGreen}{aba}b
-			
-			% Let 
+			\textcolor{ForestGreen}{aba}bcababd\\
+			\textcolor{ForestGreen}{aba}bd
+
+			% Le
 			\vspace*{2mm}
 			\hrule
-			\textcolor{ForestGreen}{aba}\textcolor{red}{c}ababd\\
-			\textcolor{ForestGreen}{aba}\textcolor{red}{b}			\hspace*{3cm} // ta thấy ký tự thứ 4 không trùng rồi \\
-																	\hspace*{3.9cm} // 
+			\textcolor{ForestGreen}{abab}cababd\\
+			\textcolor{ForestGreen}{abab}d
 
 			% Let 
 			\vspace*{2mm}
 			\hrule
-			Let\textcolor{red}{\textvisiblespace}them go!\\
-			\textcolor{white}{Let}\textcolor{red}{t}hem
-			
-			% Let t
+			\textcolor{ForestGreen}{abab}\textcolor{red}{c}ababd\\
+			\textcolor{ForestGreen}{abab}\textcolor{red}{d}			\hspace*{1.8cm} // ta thấy ký tự thứ 5 không đúng, nên ta sẽ tìm chuỗi con tiếp theo để so sánh. \\
+																	\hspace*{2.9cm} // vả lại ta/máy tính cũng thấy rằng có 4 ký tự đầu của pattern trùng với subtext \\
+																	\hspace*{2.9cm} // Trong 4 ký tự đó (abab), có có \textbf{2 ký tự đầu} giống \textbf{2 ký tự cuối} \\
+																	\hspace*{2.9cm} // Như vậy, lần tiếp theo ta nên so sánh pattern với chuỗi ab\textbf{abcab}abd 
+																	
 			\vspace*{2mm}
 			\hrule
-			Let \textcolor{ForestGreen}{t}hem go!\\
-			\textcolor{white}{Let }\textcolor{ForestGreen}{t}hem
+			a\textcolor{red}{bab}cabdabd\\
+			\textcolor{white}{a}\textcolor{red}{aba}bd 			\hspace*{1.6cm} // Để ý rằng ta sẽ so sánh với chuỗi ab\textbf{abcab}abd (nhảy 2 bước so với hiện tại) mà \\
+																							\hspace*{2.9cm} // không phải là a\textbf{babca}babd, vì subtext của bước so sánh này luôn không trùng\\
+																							\hspace*{2.9cm} //  pattern, giả sử điều ngược lại, pattern[1, 4] = text[2, 6] vì chuỗi dài nhất để chuỗi \\
+																							\hspace*{2.9cm} // đầu pattern[1, 4] và chuỗi cuối pattern[2, 4] giống nhau là 2 (ab, lớn nhất),  \\
+																							\hspace*{2.9cm} // Lưu ý rằng ta lấy pattern[1, 4] để tìm chuỗi chung là vì nó là phần đã được so sánh \\
+																							\hspace*{2.9cm} // đúng ở lượt trước, và ta có nhu cầu tái sử dụng các phép so sánh đúng này! \\
+																							\hspace*{2.9cm} // Ngoài ra, chuỗi cuối ta chỉ lấy của pattern[2, 4] vì bước tiếp theo ta phải nhảy \\
+																							\hspace*{2.9cm} // sang phải (nếu lấy pattern[1, 4] mà cả 4 ký tự giống nhau thì bước kế tiếp  \\
+																							\hspace*{2.9cm} // ta nhảy về vị trí đang đứng, ở giải thuật này) \\
+																							\hspace*{2.9cm} // Ta có: pattern[1, 3] = text[2, 4], mà text[2, 4] = pattern[2, 4] (lượt so sánh trước) \\
+																							\hspace*{2.9cm} // như vậy là: pattern[1, 3] = pattern[2, 4], tức là có chuỗi độ dài 3 vừa là chuỗi đầu 
+																							\hspace*{2.9cm} // vừa là chuỗi cuối của pattern[1, 4] (vô lý vì 2 là số lớn nhất).
 
-			% Let th
+			% Le
 			\vspace*{2mm}
 			\hrule
-			Let \textcolor{ForestGreen}{th}em go!\\
-			\textcolor{white}{Let }\textcolor{ForestGreen}{th}em
-			
-			% Let the
+			ab\textcolor{ForestGreen}{ab}\textcolor{red}{c}ababd\\
+			\textcolor{white}{ab}\textcolor{ForestGreen}{ab}\textcolor{red}{a}bd 		\hspace*{1.4cm} // Ta so sánh ký tự thứ 3 trở đi (vì ta/máy tính biết đã có 2 ký tự đầu tiên là  \\
+																						\hspace*{2.9cm} // giống nhau rồi!), ở bước này, phép so sánh là sai. \\
+																						\hspace*{2.9cm} // Vị trí sai là 3,  ta thấy không có chuỗi chung vừa là \\
+																						\hspace*{2.9cm} // chuỗi đầu và vừa là chuỗi cuối của pattern[1, 2], nên ta nhảy 1 bước sang phải.
 			\vspace*{2mm}
 			\hrule
-			Let \textcolor{ForestGreen}{the}m go!\\
-			\textcolor{white}{Let }\textcolor{ForestGreen}{the}m
-						
-			% Let them
-			\vspace*{2mm}
-			\hrule
-			Let \textcolor{ForestGreen}{them} go!\\
-			\textcolor{white}{Let }\textcolor{ForestGreen}{them}
-			\vspace*{2mm}
-			\hrule
+			aba\textcolor{red}{b}cababd\\
+			\textcolor{white}{aba}\textcolor{red}{a}babd 
 
+			\vspace*{2mm}
+			\hrule
+			abab\textcolor{red}{c}ababd\\
+			\textcolor{white}{abab}\textcolor{red}{a}babd 		\hspace*{1.3cm} // Tiếp tục so sánh như Brute-Force
+
+			\vspace*{2mm}
+			\hrule
+			ababc\textcolor{ForestGreen}{a}babd\\
+			\textcolor{white}{ababc}\textcolor{ForestGreen}{a}babd 
+
+			\vspace*{2mm}
+			\hrule
+			ababc\textcolor{ForestGreen}{ab}abd\\
+			\textcolor{white}{ababc}\textcolor{ForestGreen}{ab}abd 
+
+			\vspace*{2mm}
+			\hrule
+			ababc\textcolor{ForestGreen}{aba}bd\\
+			\textcolor{white}{ababc}\textcolor{ForestGreen}{aba}bd 
+
+			\vspace*{2mm}
+			\hrule
+			ababc\textcolor{ForestGreen}{abab}d\\
+			\textcolor{white}{ababc}\textcolor{ForestGreen}{abab}d 
+
+			\vspace*{2mm}
+			\hrule
+			ababc\textcolor{ForestGreen}{ababd}\\
+			\textcolor{white}{ababc}\textcolor{ForestGreen}{ababd} \hspace*{1.2cm} // Ok, tìm thấy rồi!
 			
+			\vspace*{2mm}
+			\hrule			
 		
+			Note: Với string là chuỗi có độ dài n. và j là số nguyên dương 0 < j < n + 1\\
+			Chuỗi đầu: Prefix, có dạng prefix[] = string[1, j], chuỗi cuối: Suffix, có dạng Suffix[] = string[j, n].
+				
+			Từ ví dụ trên, ta tìm cách thiết kế ý tưởng của KMP để tìm chuỗi 1 cách tổng quát:
+			\begin{itemize}
+				\item Ta thấy rằng, để KMP tìm cách nhảy hiệu quả, cần phải xử lý trước pattern, tìm chuỗi chung vừa là chuỗi đầu, vừa là chuỗi cuối của pattern.
+				Bước này gọi là bước tìm Failure Function, tại mỗi vị trí j trong pattern (0 < j < len(pattern) + 1), tìm độ dài lớn nhất của chuỗi chung và lưu vào mảng $f[]$ để lưu trữ.
+				\item Khi đang so sánh pattern và subtext, ta có thể gặp các trường hợp (0 < i <= len(subtext)): \\
+				1. Nếu pattern[i] = subtext[i], tăng thêm i để so sánh ký tự kế tiếp. \\
+				2. Nếu pattern[i] $\neq$ subtext[i], và i = 1, tức là ký tự đầu của chúng khác nhau, đơn giản là chỉ cần nhảy subtext sang bên phải 1 bước.\\
+				3. Nếu pattern[i] $\neq$ subtext[i], và i > 1, tức là đã có 1 lượng i - 1 ký tự ở trước đã được so sánh đúng, bây giờ là đến lúc cần dùng mảng $f$ đã tính trước ở bên trên, ta lấy f[i - 1] 
+				(chính là độ dài lớn nhất của chuỗi chung của pattern[1, i - 1]) và ta sẽ nhảy subtext 1 lượng min((i - 1) - f[i - 1], 1) để chuẩn bị cho lượt so sánh kế tiếp.
+			\end{itemize}
+			
+			Từ ý tưởng trên, ta xây dựng mã giả cho thuật toán KMP:
+
+			\begin{lstlisting}
+			function: Build Failure Function
+			pattern: chuỗi cần tìm 
+			Trả về: Mảng f lưu độ dài lớn nhất f[i] của chuỗi chung prefix và suffix của pattern[1, i].
+
+				f[] = 0 để lưu mảng trả về
+				fpre = 0;   // lưu f[i - 1] trong vòng lặp bên dưới
+				i = 2;		@// Ta chỉ tính f[2] trở đi, f[1] luôn bằng 0@
+				while (i <= n)		
+					Nếu pattern[i] == pattern[f[i - 1] + 1]
+						fpre++
+						f[i] = fpre	@// tận dụng kết i - 1 kết quả so sánh của f[i - 1], ta chỉ cần so sánh 1 ký tự.@
+						i++
+					Nếu pattern[i] != pattern[f[i - 1] + 1] và f[i - 1] = 0
+						@// Tức là suffix và prefix là chuỗi có độ dài f[i - 1] + 1 có ký tự cuối không giống@
+						@// -> f[i] = 0@
+						f[i] = 0
+						i++
+					Nếu pattern[i] != pattern[f[i - 1] + 1] và f[i - 1] > 0
+						@// Trường hợp này, có thể f[i] = f[i - 1]@
+						@// Ta sẽ tận dụng pattern[1, f[i- 1]] = pattern[i - f[i-1], i]@
+						@// Và f[f[j]] (độ dài này lớn nhất là j - 1)@
+						@// Ví dụ AAABAAAA khi xét i = 8, ta lợi dụng chuỗi [AA]ABAAAA = A[AA]BAAAA và [AAA]BAAAA = AAAB[AAA]A@
+						@// Suy ra được [AA]ABAAAA = A[AA]BAAAA = AAABA[AA]A@
+						@// Như thế chỉ cần xét ký tự AA[A]BAAAA và AAABAAA[A] để xác định f[i]@
+						fpre = f[fpre]
+				Trả về: f[]
+
+			function: KMP String Matching
+			text: chuỗi cha 
+			pattern: chuỗi cần tìm 
+			Trả về: vị trí tìm thấy đầu tiên hoặc -1 nếu không tìm thấy.
+
+				i = 1; j = 1; (i đánh dấu vị trí đang duyệt trong text, j đánh dấu vị trí đang duyệt trong pattern)
+				while (i < len(text) - len(pattern))
+					Nếu pattern[j] == text[i]
+						Tiếp tục i++ và j++ và so sánh
+							Nếu j = len(pattern) trả về đã tìm thấy pattern tại vị trí i - j.
+					Nếu pattern[j] != text[i] và j == 1
+						i = i + 1  @//Chuyển nhảy subtext sang phải 1 đơn vị @
+					Nếu pattern[j] != text[i] và j > 1
+						j = f[i] và tiếp tục so sánh text[i] và pattern[j] @// sau khi gán j = f[i] (giảm j) thì ta đã cố tình dịch chuyển subtext đang so sánh sang subtext khác!@
+				Nếu trong vòng lặp không tìm thấy pattern, ta đã duyệt hết text, trả về -1 báo kết quả không tìm thấy pattern trong text.
+					\end{lstlisting}
+			
+			Với chuỗi \textit{pattern} có độ dài là M, chuỗi \textit{text} có độ dài là N \\
+			Phân tích độ phức tạp của thuật toán:
+			\begin{itemize}
+				\item Trong quá trình tiền xử lý (tính hàm Failure Function), trong vòng while chỉ tốn nhiều nhất 1 - 2 lần để tính f[i], vậy độ 
+				phức tạp là $O(M)$
+				\item Trong quá trình so sánh, mỗi lần, ta hoặc sẽ tăng i lên 1 đơn vị, hoặc sẽ giảm j ít nhất 1 đơn vị (trong trường hợp dịch j), nghĩa là tăng k lên 1 đơn vị, k = i - j < N.
+				Vậy tổng cộng trong vòng lặp có thể lặp < 2n lần (N lần tăng i, ít hơn N lần tăng k), như vậy độ phức tạp là $O(2N)$.\\
+				$\to$ Độ phức tạp $O(M + N)$.\\
+				$\to$ Cấp phát bộ nhớ: $O(M)$.
+			\end{itemize}
+
+			Phân tích độ phức tạp của thuật toán trong trường hợp tốt nhất:
+			\begin{itemize}
+				\item Trong trường hợp tốt nhất, có thể thấy \textit{pattern} chính là \textit{subtext} đầu tiên của \textit{text}.
+				\item Như vậy, chỉ cần tốn M lần so sánh các ký tự. Ngoài ra còn tốn thêm chi phí tính Failure Function $O(M)$.\\
+				$\to$ Cận trên $O(M)$. \\
+				$\to$ Cấp phát bộ nhớ: $O(M)$.
+			\end{itemize}
+			
+			Đánh giá:
+			\begin{itemize}
+				\item Nhanh, chi phí tuyến tính.
+				\item Phải xử lý trước khi tìm kiếm thực sự.
+				\item Độ phức tạp $O(M + N)$. Chi phí bộ nhớ $O(M)$.
+			\end{itemize}
 	\end{enumerate}
 	
 	\part*{PROGRAMING}
