@@ -1,40 +1,41 @@
 #include <string.h>
 #include <stdio.h>
 #include <malloc.h>
+#include <fstream>
+#include <string>
+#include <iostream>
 #include "StringMatching.h"
 using namespace std;
 
 #define MAXCHAR 100
-const char FileIn[] = "INPUT.txt";
-const char FileOut[] = "OUTPUT.txt";
+const string FileIn = "INPUT.txt";
+const string FileOut = "OUTPUT.txt";
 
 
 #define d 256
 
-
-
-
 void main() {
-    FILE* fin, *fout;
-	fopen_s(&fin, FileIn, "r");
-    fopen_s(&fout, FileOut, "w");
+    ifstream(FileIn);
+    ofstream(FileOut);
 	int W, H;
-	fscanf_s(fin, "%d%d", &W, &H);
-	char** table = (char**)malloc(H * sizeof(char*));
+    FileIn >> W >> H;
+	
+	char** table = new char*[H * sizeof(char*)];
 	for (int i = 0; i < H; ++i) {
-		table[i] = (char*)malloc(W * sizeof(char));
+		table[i] = new char[W * sizeof(char)];
 	}
-	while (fgetc(fin) != '\n');
+    
+	FileIn.get();
 	for (int i = 0; i < H; ++i) {
 		for (int j = 0; j < W; ++j) {
-			fscanf_s(fin, "%c", &table[i][j]);
-			fgetc(fin);
+			FileIn >> table[i][j];
 		}
 	}
-	
-    char** Transpose_table = (char**)malloc(W * sizeof(char*));
+	FileIn.get();
+    
+    char** Transpose_table = new char*[H * sizeof(char*)];
     for (int i = 0; i < W; ++i) {
-        Transpose_table[i] = (char*)malloc(H * sizeof(char));
+        Transpose_table[i] = new char[W * sizeof(char)];
     }
     
     for (int i = 0; i < W; ++i) {
@@ -44,12 +45,12 @@ void main() {
     }
 	
 
-	char* word = (char*)malloc(MAXCHAR*sizeof(char));
+	string word;
 	do {
-		fgets(word, 20, fin);
-        if (strcmp(word, "#") != 0) {
+		getline(FileIn, word);
+        if (word[0] != '#') {
             
-            word[strlen(word) - 1] = '\0';
+            word[word.size() - 1] = '\0';
             bool found_horizontal = 1;
             int cntNF = 0;
 
@@ -59,9 +60,8 @@ void main() {
                 //int pos = Brute_force_string_match(word, table[i]);
                 int pos = KMP_String_match(word, table[i]);
                 if (pos != -1) {
-                    printf("%s (%d,%d) LR\n", word, i + 1, pos + 1);
-                    fprintf(fout, "%s (%d,%d) LR\n", word, i + 1, pos + 1);
-
+                    FileOut << word << " (" << i + 1 << ", " << pos + 1 << " LR\n";
+                    cout << word << " (" << i + 1 << ", " << pos + 1 << " LR\n";
                 }
                 else {
                     cntNF++;
@@ -76,15 +76,15 @@ void main() {
                 int pos = KMP_String_match(word, Transpose_table[j]);
 
                 if (pos != -1) {
-                    printf("%s (%d,%d) TD\n", word, j + 1, pos + 1);
-                    fprintf(fout,"%s (%d,%d) TD\n", word, j + 1, pos + 1);
+                    FileOut << word << " (" << j + 1 << ", " << pos + 1 << " TD\n";
+                    cout << word << " (" << j + 1 << ", " << pos + 1 << " TD\n";
 
                 }
                 else {
                     cntNF++;
                     if (cntNF == H && found_horizontal == 0) {
-                        printf("%s NF\n", word);
-                        fprintf(fout, "%s NF\n", word);
+                        FileOut << word << " NF\n";
+                        cout << word << " NF\n";
                     }
                 }
             }
@@ -92,45 +92,19 @@ void main() {
         }
 
 
-	} while (strcmp(word, "#") != 0);
+	} while (word[0] != '#');
 	
 	
     for (int i = 0; i < H; ++i) {
-        free(table[i]);
+        delete[] table[i];
     }
-    free(table);
+    delete[] table;
 
-    for (int i = 0; i < W; ++i) {
-        free(Transpose_table[i]);
+    for (int i = 0; i < H; ++i) {
+        delete[] Transpose_table[i];
     }
-    free(Transpose_table);
-    
-    free(word);
-    fclose(fout);
-	fclose(fin);
+    delete[] Transpose_table;
+
+    FileIn.close();
+    FileOut.close();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
