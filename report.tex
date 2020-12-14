@@ -186,7 +186,7 @@
 			\item base=10, hash("425")=4×102+2×101+5×100=425.
 			\item base=26, kí tự là chữ cái từ a đến z: hash("abc")=97×262+98×261+99×260=68219.
 			\end{itemize}
-			Để tránh tràn số thì kết quả trên đuợc chia lấy dư cho một số q, thường được chọn là một số nguyên tố lớn. Nếu gọi tập các kí tự được sử dụng trong chuỗi là $\sum$ thì base thừờng được chọn sao cho base=|$\sum$| hoặc cũng là một số nguyên tố lớn.
+			Để tránh tràn số thì kết quả trên đuợc chia lấy dư cho một số q, thường được chọn là một số nguyên tố lớn. Nếu gọi tập các kí tự được sử dụng trong chuỗi là $\sum$ thì base thừờng được chọn sao cho base=|$\sum$| hoặc là một số nguyên tố lớn.
 
 			Độ phức tạp thời gian để tính mã băm của chuỗi độ dài k mất O(k). Khi hiện thực thuật toán, ta sẽ "trượt" \textit{pattern} có độ dài m trên \textit{text} từ vị trí 0 đến n-m để so sánh mã băm. Rolling hash là hàm băm có thể tính mã băm $h_i$ của \textit{text}[i... i+m-1] dựa trên mã băm $h_{i-1}$ của \textit{text}[(i-1)... (i+m)] chỉ trong thời gian O(1) thay vì tính lại trong thời gian O(m), từ đó tăng tính hiệu quả.
 
