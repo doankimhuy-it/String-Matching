@@ -38,10 +38,14 @@
 	
 	\section{String Matching Problem}
 	Tìm kiếm chuỗi hiện diện rất nhiều trong cuộc sống, ví dụ như: tìm tên thầy dạy DSA trong danh sách giảng viên,
-	tìm tên trong bảng điểm,.. hoặc trong khoa học, như là tìm liệu cấu trúc ADN của virus này có trong virus khác hay không. \\\
-	Trong Tin học, các trình soạn thảo văn bản thường phải tìm kiếm (tất cả) các lần xuất hiện của một đoạn văn bản trong một văn bản dài. Thông thường văn bản được chỉnh sửa liên tục, và các phần văn bản cần tìm kiếm thì được nhập bởi người dùng. Việc phát minh ra các thuật toán tìm kiếm chuỗi hiệu quả đã giúp ích rất nhiều cho các bài toán kể trên. \\\ \\\
-	Bài toán tìm kiếm chuỗi thường được mô tả theo mô hình sau: \\\
-	Một chuỗi cần tìm kiếm S có dạng một chuỗi kí tự S[1..m], cần tìm chuỗi S trong một đoạn văn bản T[1..n], với m <= n. Đồng thời, tất cả các ký tự trong T và S đều thuộc về một tập hữu hạn các ký tự cho trước. Chuỗi S được gọi là xuất hiện bắt đầu từ vị trí p + 1 nếu thoả điều kiện: T[p + j] = S[j], với 1 <= j <= m. \\\
+	tìm tên trong bảng điểm,.. hoặc trong khoa học, như là tìm liệu cấu trúc ADN của virus này có trong virus khác hay không.
+
+	Trong Tin học, các trình soạn thảo văn bản thường phải tìm kiếm (tất cả) các lần xuất hiện của một đoạn văn bản trong một văn bản dài. Thông thường văn bản được chỉnh sửa liên tục, và các phần văn bản cần tìm kiếm thì được nhập bởi người dùng. Việc phát minh ra các thuật toán tìm kiếm chuỗi hiệu quả đã giúp ích rất nhiều cho các bài toán kể trên.
+
+	Bài toán tìm kiếm chuỗi thường được mô tả theo mô hình sau: \\
+	Một chuỗi cần tìm kiếm S có dạng một chuỗi kí tự S[1..m], cần tìm chuỗi S trong một đoạn văn bản T[1..n], với m <= n. Đồng thời, tất cả các ký tự trong T và S đều thuộc về một tập hữu hạn các ký tự cho trước. Chuỗi S được gọi là xuất hiện bắt đầu từ vị trí p + 1 nếu thoả điều kiện: T[p + j] = S[j], với 1 <= j <= m.
+	
+	\vspace*{3mm}
 	Có 3 thuật toán thường được dùng để tìm kiếm chuỗi:
 	\begin{itemize}
 	    \item Thuật toán Brute-force (vét cạn, hay còn gọi là thuật trâu)
