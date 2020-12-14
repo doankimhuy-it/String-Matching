@@ -157,9 +157,40 @@
 				\item Độ phức tạp $O(MN)$. Không cần xin thêm bộ nhớ.
 			\end{itemize}
 
-		\item Rabin-Karp
+		\subsection {Rabin-Karp}
 
-			Giải thuật Rabin-Karp
+			Thuật toán Rabin-Karp là một thuật toán được sử dụng để tìm kiếm
+			chuỗi con \textit{pattern} trong chuỗi cha \textit{text} bằng cách sử dụng một hàm băm.
+
+			Hàm băm là một hàm chuyển đổi mọi chuỗi thành giá trị số, giá trị này được gọi là mã băm của nó. Ví dụ, chúng ta có thể có hàm băm hash("hello")=5.
+
+			Giống như Thuật toán Brute-Force, thuật toán Rabin-Karp cũng dịch \textit{pattern} 
+			qua từng phần tử trong \textit{text} để so sánh.
+			Nhưng sự khác biệt là thuật toán Rabin-Karp so khớp mã băm của \textit{pattern} 
+			với mã băm của chuỗi con \textit{subtext} của \textit{text}, và nếu mã băm khớp thì thuật toán sẽ so sánh từng ký tự trong 2 chuỗi với nhau.
+
+			Nếu mã băm được biểu diễn bằng số nguyên không quá 64 bits, độ phức tạp thời gian (time-complexity) 
+			của việc so sánh \textit{pattern} có độ dài m với \textit{subtext} có cùng độ dài giảm từ O(m) xuống O(1).
+
+			Tuy nhiên mọi thứ đều có hai mặt, vấn đề của hàm băm đó là mã băm của hai chuỗi khác nhau có thể bằng nhau. 
+			Ví dụ xét hàm băm hash(S) tính mã băm của xâu S bằng cách cộng mã ASCII của các kí tự trong S: hash("abcd")=97+98+99+100=394, hàm băm này quá đơn giản và có khả năng gây trùng mã băm cao: hash("dcba")=100+99+98+97=394, nhưng "abcd" $\neq$ "dcba".
+
+			Một hàm băm tốt thoả mãn các điều kiện sau:
+			\begin{itemize}
+				\item Tính toán nhanh.
+				\item Xác suất trùng mã băm nhỏ.
+			\end{itemize}
+
+			Thuật toán Rabin-Karp xây dựng hàm băm với ý tuởng cơ số: xem mọi xâu như là một chuỗi số với một cơ số (base) nào đó. Hàm băm đuợc tính tương tự như việc ta chuyển một số nguyên về giá trị của nó, nếu là xâu kí tự thì có thể sử dụng mã ASCII (hoặc UNICODE). Một số ví dụ:
+			\begin{itemize}
+			\item base=10, hash("425")=4×102+2×101+5×100=425.
+			\item base=26, kí tự là chữ cái từ a đến z: hash("abc")=97×262+98×261+99×260=68219.
+			\end{itemize}
+			Để tránh tràn số thì kết quả trên đuợc chia lấy dư cho một số q, thường được chọn là một số nguyên tố lớn. Nếu gọi tập các kí tự được sử dụng trong chuỗi là $\sum$ thì base thừờng được chọn sao cho base=|$\sum$| hoặc cũng là một số nguyên tố lớn.
+
+			Độ phức tạp thời gian để tính mã băm của chuỗi độ dài k mất O(k). Khi hiện thực thuật toán, ta sẽ "trượt" \textit{pattern} có độ dài m trên \textit{text} từ vị trí 0 đến n-m để so sánh mã băm. Rolling hash là hàm băm có thể tính mã băm $h_i$ của \textit{text}[i... i+m-1] dựa trên mã băm $h_{i-1}$ của \textit{text}[(i-1)... (i+m)] chỉ trong thời gian O(1) thay vì tính lại trong thời gian O(m), từ đó tăng tính hiệu quả.
+
+			$h_i=(base\times(h_{i-1}-base^{m-1}\times\textit{text}[i-1])+\textit{text}[i+m-1]) \% q$
 
 	\end{enumerate}
 	
