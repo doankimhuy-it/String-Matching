@@ -83,8 +83,8 @@ void main() {
                 else {
                     cntNF++;
                     if (cntNF == H && found_horizontal == 0) {
-                        printf("%s NF\n", word);
-                        fprintf(fout, "%s NF\n", word);
+                        printf("%s (0,0) NF\n", word);
+                        fprintf(fout, "%s (0,0) NF\n", word);
                     }
                 }
             }
