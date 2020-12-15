@@ -192,6 +192,80 @@
 
 			$h_i=(base\times(h_{i-1}-base^{m-1}\times\textit{text}[i-1])+\textit{text}[i+m-1]) \% q$
 
+			Trong ví dụ sau, ta sẽ làm rõ cách hoạt động của giải thuật này:\\
+			Để đơn giản, ta chọn tập các kí tự được sử dụng trong chuỗi là \{a, b, c, d, e, f, g, h, i, j\} ứng với giá trị số lần lượt là \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\} và base=10, q=13.\\
+			\textit{text} \hspace*{6mm}= abccddaefg\\
+			\textit{pattern} \hspace*{0.3mm}= cdd\\
+			Mã băm của \textit{pattern}: hash("cdd")=$(3\times10^2+4\times10^1+4\times10^0) \% 13=344 \% 13=6$
+
+			\vspace*{4mm}
+			\hrule
+			\textcolor{ForestGreen}{abc}cddaefg \hspace*{0.6cm} // hash("abc")=$(1\times10^2+2\times10^1+3\times10^0) \% 13=123 \% 13=6$\\
+			\textcolor{ForestGreen}{cdd} \hspace*{1.8cm} // Vì mã băm của \textit{subtext} "abc" và \textit{pattern} bằng nhau \\
+		\hspace*{2.5cm} // nên thuật toán so sánh từng ký tự của chúng.\\
+		\hspace*{2.5cm} // Do "abc"$\neq$\textit{pattern} nên dịch \textit{pattern} qua phải 1 phần tử để tiếp tục tìm kiếm.\\
+
+			\vspace*{2mm}
+			\hrule
+			a\textcolor{ForestGreen}{bcc}ddaefg \hspace*{0.6cm} // hash("bcc")=$(10\times(123-10^2\times1)+3)\%13=233\%13=12$\\
+			\textcolor{white}{a}\textcolor{ForestGreen}{cdd} \hspace*{1.6cm} // Vì mã băm của \textit{subtext} "bcc" và \textit{pattern} khác nhau \\
+		\hspace*{2.5cm} // nên dịch \textit{pattern} qua phải 1 phần tử để tiếp tục tìm kiếm.\\
+
+			\vspace*{2mm}
+			\hrule
+			ab\textcolor{ForestGreen}{ccd}daefg \hspace*{0.6cm} // hash("ccd")=$(10\times(233-10^2\times2)+4)\%13=334\%13=9$\\
+			\textcolor{white}{aa}\textcolor{ForestGreen}{cdd} \hspace*{1.4cm} // Vì mã băm của \textit{subtext} "ccd" và \textit{pattern} khác nhau \\
+		\hspace*{2.5cm} // nên dịch \textit{pattern} qua phải 1 phần tử để tiếp tục tìm kiếm.\\
+
+			\vspace*{2mm}
+			\hrule
+			abc\textcolor{ForestGreen}{cdd}aefg \hspace*{0.6cm} // hash("cdd")=$(10\times(334-10^2\times3)+4)\%13=344\%13=6$\\
+			\textcolor{white}{aaa}\textcolor{ForestGreen}{cdd} \hspace*{1.2cm} // Vì mã băm của \textit{subtext} "ccd" và \textit{pattern} bằng nhau \\
+		\hspace*{2.5cm} // nên thuật toán so sánh từng ký tự của chúng.\\
+		\hspace*{2.5cm} // Do "abc"$=$\textit{pattern} nên chuỗi đã được tìm thấy.\\
+
+Từ ví dụ trên, ta thiết kế mã giả cho giải thuật Rabin-Karp:
+
+			\begin{lstlisting}
+			function: Rabin-Karp String Matching
+			text: chuỗi cha 
+			pattern: chuỗi cần tìm 
+			subtext: 1 đoạn thân của chuỗi cha có cùng chiều dài với pattern.
+			Trả về: vị trí tìm thấy đầu tiên hoặc -1 nếu không tìm thấy.
+			
+				n=chiều dài chuỗi text
+				m=chiều dài chuỗi pattern
+				Tính mã băm của pattern và chuỗi con đầu text có độ dài bằng pattern
+				Dịch pattern từ vị trí 0, qua từng phần tử của text đến vị trí n-m
+					Kiểm tra mã băm của subtext hiện tại và pattern
+						Nếu bằng nhau, so sánh từng ký tự trong 2 chuỗi
+							Nếu hoàn toàn giống nhau, trả về vị trí
+					Tính mã băm của subtext tiếp theo, nếu âm cộng thêm một lượng q
+				Nếu trong vòng lặp không tìm thấy pattern, ta đã duyệt hết text, trả về -1 báo kết quả không tìm thấy pattern trong text.
+			\end{lstlisting}
+
+			Với chuỗi \textit{pattern} có độ dài là M, chuỗi \textit{text} có độ dài là N: \\
+			Phân tích độ phức tạp của thuật toán:
+
+				Trong quá trình tiền xử lý, để tính mã băm cho \textit{pattern} cần duyệt qua M phần tử, tương tự với \textit{subtext} đầu tiên \textit{text}, vậy độ phức tạp là $O(M+M) \in O(M)$.
+
+				Trường hợp tốt nhất, có thể thấy \textit{pattern} chính là \textit{subtext} đầu tiên của \textit{text}, khi đó chỉ cần tốn M lần so sánh các ký tự, kết hợp với quá trình tiền xử lý nên độ phức tạp là $O(M+M) \in O(M)$.
+
+				Trường hợp xấu nhất:
+			\begin{itemize}
+				\item Mỗi lần so sánh với \textit{subtext}, \textit{pattern} phải so sánh nhiều nhất là M lần (trong trường hợp mã băm bằng nhau và cả M - 1 ký tự đầu đều đúng).
+				\item Có tất cả N - M + 1 chuỗi, vậy số chuỗi cần so sánh nhiều nhất là N - M + 1 \textit{subtext} như vậy (trong trường hợp chuỗi cần tìm nằm cuối, N - M + 2 chuỗi \textit{subext} đầu không trùng với \textit{pattern}).
+				
+				$\to$ Cần nhiều nhất M(N - M + 1) lần so sánh. Vì duyệt tới cuối chuỗi nên đây là trường hợp tìm thấy ở cuối hoặc không tìm thấy và xảy ra trùng mã băm ở tất cả lần so sánh trước đó.\\
+				$\to$ Cận trên $O(MN)$ (vì N > N - M + 1). \\
+			\end{itemize}
+				Do trong quá trình tìm kiếm có thực hiện tính toán và lưu mã băm nên chi phí bộ nhớ là hằng số $O(1)$.
+			Đánh giá:
+			\begin{itemize}
+				\item Mặc dù trong trường hợp xấu nhất độ phức tạp là $O(MN)$ không tốt hơn giải thuật Brute-Force, nhưng giải thuật Rabin-Karp hoạt động tốt hơn nhiều trong trường hợp trung bình và thực tế.
+				\item Có bước tiền xử lý với độ phức tạp $O(M)$ trước khi bắt đầu tìm kiếm.
+				\item Độ phức tạp $O(MN)$. Chi phí bộ nhớ $O(1)$.
+			\end{itemize}
 	\end{enumerate}
 	
 	\part*{PROGRAMING}
