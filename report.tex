@@ -173,6 +173,8 @@
 				$\to$ Cận trên $O(M)$. \\
 				$\to$ Cấp phát bộ nhớ: 0.
 			\end{itemize}
+
+			Độ phức tạp của thuật toán trong trường hợp trung bình: $O(MN)$
 			
 			Đánh giá:
 			\begin{itemize}
@@ -352,7 +354,7 @@
 					\end{lstlisting}
 			
 			Với chuỗi \textit{pattern} có độ dài là M, chuỗi \textit{text} có độ dài là N \\
-			Phân tích độ phức tạp của thuật toán:
+			Phân tích độ phức tạp của thuật toán trong trường hợp xấu nhất:
 			\begin{itemize}
 				\item Trong quá trình tiền xử lý (tính hàm Failure Function), trong vòng while chỉ tốn nhiều nhất 1 - 2 lần để tính f[i], vậy độ 
 				phức tạp là $O(M)$
@@ -369,7 +371,13 @@
 				$\to$ Cận trên $O(M)$. \\
 				$\to$ Cấp phát bộ nhớ: $O(M)$.
 			\end{itemize}
-			
+
+			Độ phức tạp của thuật toán trong trường hợp trung bình:
+			\begin{itemize}
+				\item Cận trên $O(N + M)$.
+				\item Cấp phát bộ nhớ: $O(M)$.
+			\end{itemize}
+
 			Đánh giá:
 			\begin{itemize}
 				\item Nhanh, chi phí tuyến tính.
