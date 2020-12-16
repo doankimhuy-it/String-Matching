@@ -21,9 +21,9 @@ const char FileOut[] = "OUTPUT.txt";
 int main() {
     srand((int)time(NULL));
     FILE* fin, *fout;
-    fin = fopen(FileIn, "w");
-    Gen_Random_Test(fin);
-    fclose(fin);
+    //fin = fopen(FileIn, "w");
+    //Gen_Random_Test(fin);
+    //fclose(fin);
     
     fin = fopen(FileIn, "r");
     fout = fopen(FileOut, "w");
@@ -73,7 +73,7 @@ int main() {
                 }
                 else {
                     cntNF++;
-                    if (cntNF == W)
+                    if (cntNF == H)
                         found_horizontal = 0;
                 }
             }
@@ -90,7 +90,7 @@ int main() {
                 }
                 else {
                     cntNF++;
-                    if (cntNF == H && found_horizontal == 0) {
+                    if (cntNF == W && found_horizontal == 0) {
                         printf("%s (0,0) NF\n", word);
                         fprintf(fout, "%s (0,0) NF\n", word);
                     }
