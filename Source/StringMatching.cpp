@@ -1,12 +1,11 @@
 #include "StringMatching.h"
 #include <string.h>
 #include <stdio.h>
-#include <string>
-using namespace std;
-int Brute_force_string_match(string pat, string txt)
+
+int Brute_force_string_match(char pat[], char txt[])
 {
-    int M = pat.size();
-    int N = txt.size();
+    int M = strlen(pat);
+    int N = strlen(txt);
 
     /* A loop to slide pat[] one by one */
     for (int i = 0; i <= N - M; i++) {
@@ -23,9 +22,9 @@ int Brute_force_string_match(string pat, string txt)
     return -1;
 }
 
-int Rabin_Karp_string_match(string pat, string txt, int q,int d) {
-    int M = pat.size();
-    int N = txt.size();
+int Rabin_Karp_string_match(char pat[], char txt[], int q,int d) {
+    int M = strlen(pat);
+    int N = strlen(txt);
     int i, j;
     int p = 0; // hash value for pattern  
     int t = 0; // hash value for txt  
@@ -81,10 +80,10 @@ int Rabin_Karp_string_match(string pat, string txt, int q,int d) {
 }
 
 // Prints occurrences of txt[] in pat[] 
-int KMP_String_match(string pat, string txt)
+int KMP_String_match(char pat[], char txt[])
 {
-    int M = pat.size();
-    int N = txt.size();
+    int M = strlen(pat);
+    int N = strlen(txt);
 
     // create lps[] that will hold the longest prefix suffix 
     // values for pattern 
@@ -122,7 +121,7 @@ int KMP_String_match(string pat, string txt)
 }
 
 // Fills lps[] for given patttern pat[0..M-1] 
-void computeLPSArray(string pat, int M, int lps[])
+void computeLPSArray(char pat[], int M, int lps[])
 {
     // length of the previous longest prefix suffix 
     int len = 0;

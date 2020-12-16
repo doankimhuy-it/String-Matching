@@ -1,46 +1,44 @@
 #include <string.h>
 #include <stdio.h>
+#include <malloc.h>
 #include <stdlib.h>
 #include <time.h>
-#include <fstream>
-#include <string>
-#include <iostream>
 #include "StringMatching.h"
 #include "TestCases.h"
 
 using namespace std;
 
 #define MAXCHAR 100
-const string FileIn = "INPUT.txt";
-const string FileOut = "OUTPUT.txt";
+const char FileIn[] = "INPUT.txt";
+const char FileOut[] = "OUTPUT.txt";
 
 #define d 256
 
 int main() {
     srand((int)time(NULL));
-    ifstream(FileIn);
-    ofstream(FileOut);
-
+    FILE* fin, *fout;
+    fopen_s(&fin, FileIn, "w");
     Gen_Random_Test(fin);
-	int W, H;
-    FileIn >> W >> H;
-	
-	char** table = new char*[H * sizeof(char*)];
-	for (int i = 0; i < H; ++i) {
-		table[i] = new char[W * sizeof(char)];
-	}
     
-	FileIn.get();
+    fopen_s(&fin, FileIn, "r");
+    fopen_s(&fout, FileOut, "w");
+	int W, H;
+	fscanf_s(fin, "%d%d", &W, &H);
+	char** table = (char**)malloc(H * sizeof(char*));
+	for (int i = 0; i < H; ++i) {
+		table[i] = (char*)malloc(W * sizeof(char));
+	}
+	while (fgetc(fin) != '\n');
 	for (int i = 0; i < H; ++i) {
 		for (int j = 0; j < W; ++j) {
-			FileIn >> table[i][j];
+			fscanf_s(fin, "%c", &table[i][j], (unsigned int)sizeof(char));
+			fgetc(fin);
 		}
 	}
-	FileIn.get();
-    
-    char** Transpose_table = new char*[H * sizeof(char*)];
+	
+    char** Transpose_table = (char**)malloc(W * sizeof(char*));
     for (int i = 0; i < W; ++i) {
-        Transpose_table[i] = new char[W * sizeof(char)];
+        Transpose_table[i] = (char*)malloc(H * sizeof(char));
     }
     
     for (int i = 0; i < W; ++i) {
@@ -50,12 +48,12 @@ int main() {
     }
 	
 
-	string word;
+	char* word = (char*)malloc(MAXCHAR*sizeof(char));
 	do {
-		getline(FileIn, word);
-        if (word[0] != '#') {
+		fgets(word, 20, fin);
+        if (strcmp(word, "#") != 0) {
             
-            word[word.size() - 1] = '\0';
+            word[strlen(word) - 1] = '\0';
             bool found_horizontal = 1;
             int cntNF = 0;
 
@@ -65,8 +63,8 @@ int main() {
                 //int pos = Brute_force_string_match(word, table[i]);
                 int pos = KMP_String_match(word, table[i]);
                 if (pos != -1) {
-                    FileOut << word << " (" << i + 1 << ", " << pos + 1 << " LR\n";
-                    cout << word << " (" << i + 1 << ", " << pos + 1 << " LR\n";
+                    printf("%s (%d,%d) LR\n", word, i + 1, pos + 1);
+                    fprintf(fout, "%s (%d,%d) LR\n", word, i + 1, pos + 1);
                 }
                 else {
                     cntNF++;
@@ -81,15 +79,15 @@ int main() {
                 int pos = KMP_String_match(word, Transpose_table[j]);
 
                 if (pos != -1) {
-                    FileOut << word << " (" << j + 1 << ", " << pos + 1 << " TD\n";
-                    cout << word << " (" << j + 1 << ", " << pos + 1 << " TD\n";
+                    printf("%s (%d,%d) TD\n", word, j + 1, pos + 1);
+                    fprintf(fout,"%s (%d,%d) TD\n", word, j + 1, pos + 1);
 
                 }
                 else {
                     cntNF++;
                     if (cntNF == H && found_horizontal == 0) {
-                        FileOut << word << " NF\n";
-                        cout << word << " NF\n";
+                        printf("%s (0,0) NF\n", word);
+                        fprintf(fout, "%s (0,0) NF\n", word);
                     }
                 }
             }
@@ -97,18 +95,46 @@ int main() {
         }
 
 
-	} while (word[0] != '#');
+	} while (strcmp(word, "#") != 0);
 	
 	
     for (int i = 0; i < H; ++i) {
-        delete[] table[i];
+        free(table[i]);
     }
-    delete[] table;
+    free(table);
 
-    for (int i = 0; i < H; ++i) {
-        delete[] Transpose_table[i];
+    for (int i = 0; i < W; ++i) {
+        free(Transpose_table[i]);
     }
-    delete[] Transpose_table;
-    FileIn.close();
-    FileOut.close();
+    free(Transpose_table);
+    
+    free(word);
+    fclose(fout);
+	fclose(fin);
+    return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
