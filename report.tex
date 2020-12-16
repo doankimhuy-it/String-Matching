@@ -156,8 +156,7 @@
 				\item Không cần bước tiền xử lý (như các thuật toán được trình bày bên dưới).
 				\item Độ phức tạp $O(MN)$. Không cần xin thêm bộ nhớ.
 			\end{itemize}
-
-		\subsection {Rabin-Karp}
+		\item {Rabin-Karp}
 
 			Thuật toán Rabin-Karp là một thuật toán được sử dụng để tìm kiếm
 			chuỗi con \textit{pattern} trong chuỗi cha \textit{text} bằng cách sử dụng một hàm băm.
@@ -203,26 +202,26 @@
 			\textcolor{ForestGreen}{abc}cddaefg \hspace*{0.6cm} // hash("abc")=$(1\times10^2+2\times10^1+3\times10^0) \% 13=123 \% 13=6$\\
 			\textcolor{ForestGreen}{cdd} \hspace*{1.8cm} // Vì mã băm của \textit{subtext} "abc" và \textit{pattern} bằng nhau \\
 		\hspace*{2.5cm} // nên thuật toán so sánh từng ký tự của chúng.\\
-		\hspace*{2.5cm} // Do "abc"$\neq$\textit{pattern} nên dịch \textit{pattern} qua phải 1 phần tử để tiếp tục tìm kiếm.\\
+		\hspace*{2.5cm} // Do "abc"$\neq$\textit{pattern} nên dịch \textit{pattern} qua phải 1 phần tử để tiếp tục tìm kiếm.
 
 			\vspace*{2mm}
 			\hrule
 			a\textcolor{ForestGreen}{bcc}ddaefg \hspace*{0.6cm} // hash("bcc")=$(10\times(123-10^2\times1)+3)\%13=233\%13=12$\\
 			\textcolor{white}{a}\textcolor{ForestGreen}{cdd} \hspace*{1.6cm} // Vì mã băm của \textit{subtext} "bcc" và \textit{pattern} khác nhau \\
-		\hspace*{2.5cm} // nên dịch \textit{pattern} qua phải 1 phần tử để tiếp tục tìm kiếm.\\
+		\hspace*{2.5cm} // nên dịch \textit{pattern} qua phải 1 phần tử để tiếp tục tìm kiếm.
 
 			\vspace*{2mm}
 			\hrule
 			ab\textcolor{ForestGreen}{ccd}daefg \hspace*{0.6cm} // hash("ccd")=$(10\times(233-10^2\times2)+4)\%13=334\%13=9$\\
 			\textcolor{white}{aa}\textcolor{ForestGreen}{cdd} \hspace*{1.4cm} // Vì mã băm của \textit{subtext} "ccd" và \textit{pattern} khác nhau \\
-		\hspace*{2.5cm} // nên dịch \textit{pattern} qua phải 1 phần tử để tiếp tục tìm kiếm.\\
+		\hspace*{2.5cm} // nên dịch \textit{pattern} qua phải 1 phần tử để tiếp tục tìm kiếm.
 
 			\vspace*{2mm}
 			\hrule
 			abc\textcolor{ForestGreen}{cdd}aefg \hspace*{0.6cm} // hash("cdd")=$(10\times(334-10^2\times3)+4)\%13=344\%13=6$\\
 			\textcolor{white}{aaa}\textcolor{ForestGreen}{cdd} \hspace*{1.2cm} // Vì mã băm của \textit{subtext} "ccd" và \textit{pattern} bằng nhau \\
 		\hspace*{2.5cm} // nên thuật toán so sánh từng ký tự của chúng.\\
-		\hspace*{2.5cm} // Do "abc"$=$\textit{pattern} nên chuỗi đã được tìm thấy.\\
+		\hspace*{2.5cm} // Do "abc"$=$\textit{pattern} nên chuỗi đã được tìm thấy.
 
 Từ ví dụ trên, ta thiết kế mã giả cho giải thuật Rabin-Karp:
 
@@ -257,7 +256,7 @@ Từ ví dụ trên, ta thiết kế mã giả cho giải thuật Rabin-Karp:
 				\item Có tất cả N - M + 1 chuỗi, vậy số chuỗi cần so sánh nhiều nhất là N - M + 1 \textit{subtext} như vậy (trong trường hợp chuỗi cần tìm nằm cuối, N - M + 2 chuỗi \textit{subext} đầu không trùng với \textit{pattern}).
 				
 				$\to$ Cần nhiều nhất M(N - M + 1) lần so sánh. Vì duyệt tới cuối chuỗi nên đây là trường hợp tìm thấy ở cuối hoặc không tìm thấy và xảy ra trùng mã băm ở tất cả lần so sánh trước đó.\\
-				$\to$ Cận trên $O(MN)$ (vì N > N - M + 1). \\
+				$\to$ Cận trên $O(MN)$ (vì N > N - M + 1). 
 				
 				Trường hợp trung bình: $O(N+M) \in O(M)$
 			\end{itemize}
