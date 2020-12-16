@@ -258,6 +258,8 @@ Từ ví dụ trên, ta thiết kế mã giả cho giải thuật Rabin-Karp:
 				
 				$\to$ Cần nhiều nhất M(N - M + 1) lần so sánh. Vì duyệt tới cuối chuỗi nên đây là trường hợp tìm thấy ở cuối hoặc không tìm thấy và xảy ra trùng mã băm ở tất cả lần so sánh trước đó.\\
 				$\to$ Cận trên $O(MN)$ (vì N > N - M + 1). \\
+				
+				Trường hợp trung bình: $O(N+M) \in O(M)$
 			\end{itemize}
 				Do trong quá trình tìm kiếm có thực hiện tính toán và lưu mã băm nên chi phí bộ nhớ là hằng số $O(1)$.
 			Đánh giá:
