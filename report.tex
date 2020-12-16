@@ -28,14 +28,19 @@
 	moredelim=**[is][\color{Ao}]{@}{@}
 }
 
-\title{Sections and Chapters}
-\author{Gubert Farnsworth}
+\title{TÌM KIẾM CHUỖI}
+\author{
+	Phan Lộc Sơn 19120033\\
+	Đoàn Kim Huy \\
+	Đỗ Hoài Nam \\
+	Trần Anh Huy
+}
 \date{\today}
 \begin{document}
 	\maketitle
-	\part*{STRING MATCHING}
+	\part*{TÌM KIẾM CHUỖI}
 	
-	\section{String Matching Problem}
+	\section{Xác định vấn đề}
 	Tìm kiếm chuỗi hiện diện rất nhiều trong cuộc sống, ví dụ như: tìm tên thầy dạy DSA trong danh sách giảng viên,
 	tìm tên trong bảng điểm,.. hoặc trong khoa học, như là tìm liệu cấu trúc ADN của virus này có trong virus khác hay không.
 
@@ -53,7 +58,7 @@
 	\end{itemize}
 	Chi tiết của từng thuật toán sẽ được trình bày bên dưới.
 
-	\section{String Matching Algorithms}
+	\section{Một số thuật toán tìm kiếm chuỗi}
 	\begin{enumerate}
 		\item Brute-force 
 		
@@ -373,16 +378,16 @@
 			\end{itemize}
 	\end{enumerate}
 	
-	\part*{PROGRAMING}
-	\Large {Crossword game}
+	\part*{TÌM KIẾM CHUỖI TRONG TIN HỌC}
+	\Large {Ví dụ về Crossword game}
 	\setcounter{section}{0}
-	\section{Introduce}
+	\section{Hướng giải Crossword game}
 
 	Trong phần này, nhóm chúng tôi quyết định sẽ sử dụng thuật toán KMP để làm giải thuật tìm kiếm chuỗi, bởi vì giải thuật này có vẻ nhanh hơn 2 giải thuật còn lại với thời gian $O(M + N)$.
 
 	Thuật toán chính của chương trình là đọc mảng chữ cái vào mảng \textbf{table} để tìm theo hàng ngang, và tạo mảng \textbf{Transpose\_table} bằng cách chuyển vị mảng \textbf{table} để tìm theo hàng dọc.
 
-	Tìm hàng ngang trước và hàng dọc sau, nếu tìm thấy, in ra vị trí tìm thấy, nếu không, in ra NF.
-	\section{Example Test}
+	Tìm bằng thuật toán KMP, hàng ngang trước và hàng dọc sau, nếu tìm thấy, in ra vị trí tìm thấy, nếu không, in ra NF.
+	\section{Một số mẫu kiểm tra lời giải}
 	
 \end{document}
