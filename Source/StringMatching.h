@@ -3,11 +3,11 @@
 
 
 
-int Brute_force_string_match(char pat[], char txt[]);
-int Rabin_Karp_string_match(char pat[], char txt[], int q, int d);
+int Brute_force_string_match(string pat, string txt);
+int Rabin_Karp_string_match(string pat, string txt, int q,int d);
 
-void computeLPSArray(char pat[], int M, int lps[]);
-int KMP_String_match(char pat[], char txt[]);
+void computeLPSArray(string pat, int M, int lps[]);
+int KMP_String_match(string pat, string txt);
 
 
 #endif // _STRINGMATCHING_H_
