@@ -1,3 +1,7 @@
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include <string.h>
 #include <stdio.h>
 #include <malloc.h>
@@ -17,13 +21,14 @@ const char FileOut[] = "OUTPUT.txt";
 int main() {
     srand((int)time(NULL));
     FILE* fin, *fout;
-    fopen_s(&fin, FileIn, "w");
+    fin = fopen(FileIn, "w");
     Gen_Random_Test(fin);
+    fclose(fin);
     
-    fopen_s(&fin, FileIn, "r");
-    fopen_s(&fout, FileOut, "w");
+    fin = fopen(FileIn, "r");
+    fout = fopen(FileOut, "w");
 	int W, H;
-	fscanf_s(fin, "%d%d", &W, &H);
+	fscanf(fin, "%d%d", &W, &H);
 	char** table = (char**)malloc(H * sizeof(char*));
 	for (int i = 0; i < H; ++i) {
 		table[i] = (char*)malloc(W * sizeof(char));
@@ -31,7 +36,7 @@ int main() {
 	while (fgetc(fin) != '\n');
 	for (int i = 0; i < H; ++i) {
 		for (int j = 0; j < W; ++j) {
-			fscanf_s(fin, "%c", &table[i][j], (unsigned int)sizeof(char));
+			fscanf(fin, "%c", &table[i][j], (unsigned int)sizeof(char));
 			fgetc(fin);
 		}
 	}
