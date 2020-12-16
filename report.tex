@@ -166,6 +166,80 @@
 				\item Không cần bước tiền xử lý (như các thuật toán được trình bày bên dưới).
 				\item Độ phức tạp $O(MN)$. Không cần xin thêm bộ nhớ.
 			\end{itemize}
+
+		\item Rabin-Karp
+		\item Knuth-Morris-Pratt
+		
+			Giải thuật Knuth-Morris-Pratt, về cơ bản cũng giống như thuật toán Brute-Force, 
+			tuy nhiên, chỉ khác ở chỗ, Brute-Forch khi so sánh \textit{pattern} và \textit{subtext}, Brute-Force so sánh toàn bộ 
+			các ký tự của chúng lại từ đầu, còn Knuth-Morris-Pratt, từ lần so sánh trước, sẽ quyết định có so sánh pattern với \textit{subtext} kế tiếp không, 
+			và nếu không sẽ nhảy bao nhiêu bước đến \textit{subtext} khác. 
+			(đã biết được chúng giống nhau), từ đó tiết kiệm được chi phí giải bài toán.
+
+			Để dễ hiểu, ta xét 1 ví dụ như sau: 
+			
+			\textit{text} \hspace*{6mm}= abacababd\\
+			\textit{pattern} \hspace*{0.1mm}= abab
+			
+			% L
+			\vspace*{4mm}
+			\hrule
+			\textcolor{ForestGreen}{a}bacababd\\
+			\textcolor{ForestGreen}{a}bab \hspace*{3cm} // So sánh như Brute-Force
+
+			% Le
+			\vspace*{2mm}
+			\hrule
+			\textcolor{ForestGreen}{ab}acababd\\
+			\textcolor{ForestGreen}{ab}ab
+			
+			% Le
+			\vspace*{2mm}
+			\hrule
+			\textcolor{ForestGreen}{aba}cababd\\
+			\textcolor{ForestGreen}{aba}b
+			
+			% Let 
+			\vspace*{2mm}
+			\hrule
+			\textcolor{ForestGreen}{aba}\textcolor{red}{c}ababd\\
+			\textcolor{ForestGreen}{aba}\textcolor{red}{b}			\hspace*{3cm} // ta thấy ký tự thứ 4 không trùng rồi \\
+																	\hspace*{3.9cm} // 
+
+			% Let 
+			\vspace*{2mm}
+			\hrule
+			Let\textcolor{red}{\textvisiblespace}them go!\\
+			\textcolor{white}{Let}\textcolor{red}{t}hem
+			
+			% Let t
+			\vspace*{2mm}
+			\hrule
+			Let \textcolor{ForestGreen}{t}hem go!\\
+			\textcolor{white}{Let }\textcolor{ForestGreen}{t}hem
+
+			% Let th
+			\vspace*{2mm}
+			\hrule
+			Let \textcolor{ForestGreen}{th}em go!\\
+			\textcolor{white}{Let }\textcolor{ForestGreen}{th}em
+			
+			% Let the
+			\vspace*{2mm}
+			\hrule
+			Let \textcolor{ForestGreen}{the}m go!\\
+			\textcolor{white}{Let }\textcolor{ForestGreen}{the}m
+						
+			% Let them
+			\vspace*{2mm}
+			\hrule
+			Let \textcolor{ForestGreen}{them} go!\\
+			\textcolor{white}{Let }\textcolor{ForestGreen}{them}
+			\vspace*{2mm}
+			\hrule
+
+			
+		
 	\end{enumerate}
 	
 	\part*{PROGRAMING}
