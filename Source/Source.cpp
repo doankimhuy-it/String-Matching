@@ -1,22 +1,26 @@
 #include <string.h>
 #include <stdio.h>
 #include <malloc.h>
+#include <stdlib.h>
+#include <time.h>
 #include "StringMatching.h"
+#include "TestCases.h"
+
 using namespace std;
 
 #define MAXCHAR 100
 const char FileIn[] = "INPUT.txt";
 const char FileOut[] = "OUTPUT.txt";
 
-
 #define d 256
 
-
-
-
-void main() {
+int main() {
+    srand((int)time(NULL));
     FILE* fin, *fout;
-	fopen_s(&fin, FileIn, "r");
+    fopen_s(&fin, FileIn, "w");
+    Gen_Random_Test(fin);
+    
+    fopen_s(&fin, FileIn, "r");
     fopen_s(&fout, FileOut, "w");
 	int W, H;
 	fscanf_s(fin, "%d%d", &W, &H);
@@ -27,7 +31,7 @@ void main() {
 	while (fgetc(fin) != '\n');
 	for (int i = 0; i < H; ++i) {
 		for (int j = 0; j < W; ++j) {
-			fscanf_s(fin, "%c", &table[i][j]);
+			fscanf_s(fin, "%c", &table[i][j], (unsigned int)sizeof(char));
 			fgetc(fin);
 		}
 	}
@@ -61,7 +65,6 @@ void main() {
                 if (pos != -1) {
                     printf("%s (%d,%d) LR\n", word, i + 1, pos + 1);
                     fprintf(fout, "%s (%d,%d) LR\n", word, i + 1, pos + 1);
-
                 }
                 else {
                     cntNF++;
@@ -83,8 +86,8 @@ void main() {
                 else {
                     cntNF++;
                     if (cntNF == H && found_horizontal == 0) {
-                        printf("%s NF\n", word);
-                        fprintf(fout, "%s NF\n", word);
+                        printf("%s (0,0) NF\n", word);
+                        fprintf(fout, "%s (0,0) NF\n", word);
                     }
                 }
             }
@@ -108,6 +111,7 @@ void main() {
     free(word);
     fclose(fout);
 	fclose(fin);
+    return 0;
 }
 
 
