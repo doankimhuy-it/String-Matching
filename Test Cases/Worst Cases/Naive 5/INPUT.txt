@@ -1,0 +1,11 @@
+5 5
+E E E E C
+E E E E C
+E E E E C
+E E E E C
+C C C C C
+EC
+EEC
+EEEC
+EEEEC
+#

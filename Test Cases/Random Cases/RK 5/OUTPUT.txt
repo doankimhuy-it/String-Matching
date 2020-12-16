@@ -1,0 +1,6 @@
+2
+MUB (4,2) LR
+UP (3,4) TD
+EVH (0,0) NF
+MEGI (0,0) NF
+SOFI (0,0) NF

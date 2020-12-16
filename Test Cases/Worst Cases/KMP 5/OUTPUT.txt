@@ -1,0 +1,5 @@
+0
+VVV (0,0) NF
+JJJJJ (0,0) NF
+AAAAA (0,0) NF
+XXXX (0,0) NF

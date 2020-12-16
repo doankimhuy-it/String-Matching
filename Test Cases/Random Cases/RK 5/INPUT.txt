@@ -1,0 +1,12 @@
+5 5
+Y J Q P G
+B E K Q C
+D Q A S T
+X M U B Y
+G M P J M
+MUB
+UP
+EVH
+MEGI
+SOFI
+#
