@@ -310,13 +310,14 @@
 			Để dễ hiểu, ta xét 1 ví dụ như sau: 
 			
 			\textit{text} \hspace*{6mm}= ababcababd\\
-			\textit{pattern} \hspace*{0.1mm}= ababd
+			\textit{pattern} \hspace*{0.3mm}= ababd\\
+			Quy ước vị trí ký tự đầu tiên trong chuỗi là 1.
 			
 			% L
 			\vspace*{4mm}
 			\hrule
 			\textcolor{ForestGreen}{a}babcababd\\
-			\textcolor{ForestGreen}{a}babd \hspace*{1.8cm} // So sánh như Brute-Force
+			\textcolor{ForestGreen}{a}babd \hspace*{1.8cm} // Bắt đầu so sánh \textit{pattern} với \textit{subtext} đầu tiên của \textit{text} tương tự giải thuật Brute-Force.
 
 			% Le
 			\vspace*{2mm}
@@ -340,44 +341,42 @@
 			\vspace*{2mm}
 			\hrule
 			\textcolor{ForestGreen}{abab}\textcolor{red}{c}ababd\\
-			\textcolor{ForestGreen}{abab}\textcolor{red}{d}			\hspace*{1.8cm} // ta thấy ký tự thứ 5 không đúng, nên ta sẽ tìm chuỗi con tiếp theo để so sánh. \\
-																	\hspace*{2.9cm} // vả lại ta/máy tính cũng thấy rằng có 4 ký tự đầu của pattern trùng với subtext \\
-																	\hspace*{2.9cm} // Trong 4 ký tự đó (abab), có có \textbf{2 ký tự đầu} giống \textbf{2 ký tự cuối} \\
-																	\hspace*{2.9cm} // Như vậy, lần tiếp theo ta nên so sánh pattern với chuỗi ab\textbf{abcab}abd 
-																	
-			\vspace*{2mm}
-			\hrule
-			a\textcolor{red}{bab}cabdabd\\
-			\textcolor{white}{a}\textcolor{red}{aba}bd 			\hspace*{1.6cm} // Để ý rằng ta sẽ so sánh với chuỗi ab\textbf{abcab}abd (nhảy 2 bước so với hiện tại) mà \\
-																							\hspace*{2.9cm} // không phải là a\textbf{babca}babd, vì subtext của bước so sánh này luôn không trùng\\
-																							\hspace*{2.9cm} //  pattern, giả sử điều ngược lại, pattern[1, 4] = text[2, 6] vì chuỗi dài nhất để chuỗi \\
-																							\hspace*{2.9cm} // đầu pattern[1, 4] và chuỗi cuối pattern[2, 4] giống nhau là 2 (ab, lớn nhất),  \\
-																							\hspace*{2.9cm} // Lưu ý rằng ta lấy pattern[1, 4] để tìm chuỗi chung là vì nó là phần đã được so sánh \\
-																							\hspace*{2.9cm} // đúng ở lượt trước, và ta có nhu cầu tái sử dụng các phép so sánh đúng này! \\
-																							\hspace*{2.9cm} // Ngoài ra, chuỗi cuối ta chỉ lấy của pattern[2, 4] vì bước tiếp theo ta phải nhảy \\
-																							\hspace*{2.9cm} // sang phải (nếu lấy pattern[1, 4] mà cả 4 ký tự giống nhau thì bước kế tiếp  \\
-																							\hspace*{2.9cm} // ta nhảy về vị trí đang đứng, ở giải thuật này) \\
-																							\hspace*{2.9cm} // Ta có: pattern[1, 3] = text[2, 4], mà text[2, 4] = pattern[2, 4] (lượt so sánh trước) \\
-																							\hspace*{2.9cm} // như vậy là: pattern[1, 3] = pattern[2, 4], tức là có chuỗi độ dài 3 vừa là chuỗi đầu 
-																							\hspace*{2.9cm} // vừa là chuỗi cuối của pattern[1, 4] (vô lý vì 2 là số lớn nhất).
-
-			% Le
+			\textcolor{ForestGreen}{abab}\textcolor{red}{d}			\hspace*{1.8cm} // Ta thấy ký tự thứ 5 của \textit{pattern} và \textit{subtext} không khớp nhau\\
+																	\hspace*{2.9cm} // nên ta sẽ tìm \textit{subtext} tiếp theo để so sánh. \\
+																	\hspace*{2.9cm} // Ta nhận thấy rằng 4 ký tự đầu của \textit{pattern} khớp với \textit{subtext}, \\
+																	\hspace*{2.9cm} // trong 4 ký tự đó (abab), có có \textbf{2 ký tự đầu} giống \textbf{2 ký tự cuối}. \\
+																	\hspace*{2.9cm} // Ta không nên chọn \textit{subtext} tiếp theo là a\textbf{babca}babd\\
+																	\hspace*{2.9cm} // vì \textit{subtext} của bước so sánh này luôn không trùng \textit{pattern}.\\
+																	\hspace*{2.9cm} // Như vậy, lần tiếp theo ta nên so sánh \textit{pattern} với chuỗi ab\textbf{abcab}abd\\
+																	\hspace*{2.9cm} // vì chuỗi dài nhất để chuỗi tiền tố \textit{pattern}[1, 4] và chuỗi hậu tố \textit{pattern}[2, 4] \\
+																	\hspace*{2.9cm} // giống nhau là \textbf{ab} có độ dài là 2.													
 			\vspace*{2mm}
 			\hrule
 			ab\textcolor{ForestGreen}{ab}\textcolor{red}{c}ababd\\
-			\textcolor{white}{ab}\textcolor{ForestGreen}{ab}\textcolor{red}{a}bd 		\hspace*{1.4cm} // Ta so sánh ký tự thứ 3 trở đi (vì ta/máy tính biết đã có 2 ký tự đầu tiên là  \\
-																						\hspace*{2.9cm} // giống nhau rồi!), ở bước này, phép so sánh là sai. \\
-																						\hspace*{2.9cm} // Vị trí sai là 3,  ta thấy không có chuỗi chung vừa là \\
-																						\hspace*{2.9cm} // chuỗi đầu và vừa là chuỗi cuối của pattern[1, 2], nên ta nhảy 1 bước sang phải.
+			\textcolor{white}{ab}\textcolor{ForestGreen}{ab}\textcolor{red}{a}bd 			\hspace*{1.4cm} // Ta lấy pattern[1, 4] để tìm chuỗi chung là vì nó là phần đã được so sánh đúng \\
+																							\hspace*{2.9cm} // ở lượt trước và ta cần tái sử dụng các phép so sánh đúng này.\\
+																							\hspace*{2.9cm} // Ngoài ra, chuỗi hậu tố ta chỉ lấy của \textit{pattern}[2, 4] vì bước tiếp theo \\
+																							\hspace*{2.9cm} // ta sẽ dịch \textit{pattern} để tiếp tục tìm kiếm\\
+																							\hspace*{2.9cm} // (nếu lấy \textit{pattern}[1, 4] mà cả 4 ký tự giống nhau thì bước tiếp theo  \\
+																							\hspace*{2.9cm} // ở giải thuật này ta lại ở vị trí hiện tại) \\
+																							\hspace*{2.9cm} // Ta có: pattern[1, 3] = text[2, 4], mà text[2, 4] = pattern[2, 4] (lượt so sánh trước) \\
+																							\hspace*{2.9cm} // như vậy là: pattern[1, 3] = pattern[2, 4], tức là có chuỗi độ dài 3 vừa là chuỗi đầu \\
+																							\hspace*{2.9cm} // vừa là chuỗi cuối của pattern[1, 4] (vô lý vì 2 là số lớn nhất).\\
+																							\hspace*{2.9cm} // Ta so sánh \textit{pattern} với \textit{subtext} bắt đầu bằng ký tự thứ 3 \\
+																							\hspace*{2.9cm} // (vì 2 ký tự đầu tiên đã đúng). \\
+																							\hspace*{2.9cm} // Vị trí không khớp là \textit{pattern}[3],  ta thấy không có chuỗi chung vừa là \\
+																							\hspace*{2.9cm} // chuỗi đầu và vừa là chuỗi cuối của pattern[1, 2]\\
+																							\hspace*{2.9cm} // nên ta dịch \textit{pattern} sang phải 1 ký tự để tiếp tục so sánh.
+
 			\vspace*{2mm}
 			\hrule
 			aba\textcolor{red}{b}cababd\\
-			\textcolor{white}{aba}\textcolor{red}{a}babd 
+			\textcolor{white}{aba}\textcolor{red}{a}babd 						\hspace*{1.2cm} // Tiếp tục so sánh \textit{pattern} với \textit{text} tương tự giải thuật Brute-Force. \\
 
 			\vspace*{2mm}
 			\hrule
 			abab\textcolor{red}{c}ababd\\
-			\textcolor{white}{abab}\textcolor{red}{a}babd 		\hspace*{1.3cm} // Tiếp tục so sánh như Brute-Force
+			\textcolor{white}{abab}\textcolor{red}{a}babd 		
 
 			\vspace*{2mm}
 			\hrule
@@ -402,7 +401,8 @@
 			\vspace*{2mm}
 			\hrule
 			ababc\textcolor{ForestGreen}{ababd}\\
-			\textcolor{white}{ababc}\textcolor{ForestGreen}{ababd} \hspace*{1.2cm} // Ok, tìm thấy rồi!
+			\textcolor{white}{ababc}\textcolor{ForestGreen}{ababd} 				\hspace*{0.8cm} // \textit{pattern} khớp \textit{subtext} tại vị trí thứ 6 của \textit{text}\\
+															\hspace*{2.9cm} // Vị trí tìm được là 6, kết thúc tìm kiếm.
 			
 			\vspace*{2mm}
 			\hrule			
