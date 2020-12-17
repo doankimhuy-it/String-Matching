@@ -1,0 +1,23 @@
+20 20
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+S S S S S S S S S S S S S S S S S S S F
+F F F F F F F F F F F F F F F F F F F F
+SSSSSSSSSF
+#

@@ -1,0 +1,8 @@
+5 5
+X X X X H
+X X X X H
+X X X X H
+X X X X H
+H H H H H
+XH
+#

@@ -1,0 +1,13 @@
+10 10
+R R R R R R R R R F
+R R R R R R R R R F
+R R R R R R R R R F
+R R R R R R R R R F
+R R R R R R R R R F
+R R R R R R R R R F
+R R R R R R R R R F
+R R R R R R R R R F
+R R R R R R R R R F
+F F F F F F F F F F
+RRRRF
+#

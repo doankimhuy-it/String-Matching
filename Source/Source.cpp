@@ -11,11 +11,12 @@
 using namespace std;
 using namespace std::chrono;
 
+#define MAXCHAR 100
 const char FileIn[] = "INPUT.txt";
 const char FileOut[] = "OUTPUT.txt";
 
-int n = 50;
-int MAXCHAR = n;
+#define d 256
+
 int main() {
 	srand((int)time(NULL));
 	FILE* fin, *ftmp;
@@ -23,7 +24,7 @@ int main() {
 	//Gen_Random_Test(fin);
 	//Gen_Naive_Worst_Case_Test(fin);
 	//Gen_RK_Worst_Case_Test(fin);
-	Gen_KMP_Worst_Case_Test(fin, n);
+	Gen_KMP_Worst_Case_Test(fin);
 	fclose(fin);
 
 	fin = fopen(FileIn, "r");
@@ -136,3 +137,28 @@ int main() {
 	fclose(fout);
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

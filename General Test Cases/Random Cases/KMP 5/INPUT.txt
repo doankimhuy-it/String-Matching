@@ -1,0 +1,8 @@
+5 5
+P G Z D X
+V R P E K
+D D D G B
+B C B G W
+Y V B T U
+BT
+#
