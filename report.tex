@@ -512,6 +512,13 @@
 	Thuật toán chính của chương trình là đọc mảng chữ cái vào mảng \textbf{table} để tìm theo hàng ngang, và tạo mảng \textbf{Transpose\_table} bằng cách chuyển vị mảng \textbf{table} để tìm theo hàng dọc.
 
 	Tìm bằng thuật toán KMP, hàng ngang trước và hàng dọc sau, nếu tìm thấy, in ra vị trí tìm thấy, nếu không, in ra NF.
+
+	Độ phức tạp:
+	\begin{itemize}
+		\item Có H hàng, mỗi hàng cần tìm 1 chuỗi có độ dài M trong chuỗi W, vậy độ phức tạp là $O(H*(M + W))$.
+		\item Có W cột, mỗi cột cần tìm 1 chuỗi có độ dài M trong chuỗi H, vậy độ phức tạp là $O(W*(M + H))$.
+		\\$\to$ Như vậy, độ phức tạp là: $O(2WH + M(H + W))$ đối với từng từ.
+	\end{itemize}
 	\section{Một số mẫu kiểm tra lời giải}
 	
 \end{document}
