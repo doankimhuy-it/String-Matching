@@ -1,0 +1,6 @@
+2
+BQ (5,3) LR
+CS (2,2) TD
+JYJ (0,0) NF
+WRDDJ (0,0) NF
+JUSUB (0,0) NF

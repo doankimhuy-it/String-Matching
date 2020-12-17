@@ -1,0 +1,11 @@
+5 5
+P P P P P
+P P P P P
+P P P P P
+P P P P P
+P P P P P
+PPPPN
+PPPPZ
+PPO
+PPPPH
+#
