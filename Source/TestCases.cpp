@@ -16,9 +16,9 @@ int random(int l, int r) {
 	return r;
 }
 
-void Gen_Random_Test(FILE* fin) {
+void Gen_Random_Test(FILE* fin, int n) {
 	if (fin) {
-		int W = 50;
+		int W = n;
 		//int H = random(1, 10);
 		int H = W;
 		char** table = (char**)malloc(H * sizeof(char*));
@@ -78,9 +78,9 @@ void Gen_Random_Test(FILE* fin) {
 	}
 }
 
-void Gen_Naive_Worst_Case_Test(FILE* fin) {
+void Gen_Naive_Worst_Case_Test(FILE* fin, int n) {
 	if (fin) {
-		int W = 50;
+		int W = n;
 		//int H = random(1, 10);
 		int H = W;
 		fprintf(fin, "%d %d\n", W, H);
@@ -119,9 +119,9 @@ void Gen_Naive_Worst_Case_Test(FILE* fin) {
 	}
 }
 
-void Gen_RK_Worst_Case_Test(FILE* fin) {
+void Gen_RK_Worst_Case_Test(FILE* fin, int n) {
 	if (fin) {
-		int W = 50;
+		int W = n;
 		//int H = random(1, 10);
 		int H = W;
 		fprintf(fin, "%d %d\n", W, H);
@@ -151,9 +151,9 @@ void Gen_RK_Worst_Case_Test(FILE* fin) {
 	}
 }
 
-void Gen_KMP_Worst_Case_Test(FILE* fin) {
+void Gen_KMP_Worst_Case_Test(FILE* fin, int n) {
 	if (fin) {
-		int W = 50;
+		int W = n;
 		//int H = random(1, 10);
 		int H = W;
 		fprintf(fin, "%d %d\n", W, H);

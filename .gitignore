@@ -6,3 +6,6 @@ report.log
 report.synctex.gz
 report.pdf
 Source/main.exe
+Source/INPUT.txt
+Source/OUTPUT.txt
+*.txt
