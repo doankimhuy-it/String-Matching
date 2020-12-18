@@ -3,9 +3,37 @@
 \usepackage[utf8]{inputenc}
 \usepackage[utf8]{vntex}
 \usepackage{blindtext, amsfonts, amsmath, listings, color}
-
+\usepackage{babel}
+\usepackage{csvsimple} % For csv importing.
+\usepackage{etoolbox}
+\usepackage{booktabs} % added
 \usepackage[dvipsnames]{xcolor}
 \usepackage{tvietlistings}	
+\usepackage{array}
+\usepackage{tabulary}
+
+\makeatletter
+\newcommand\docolumncount[2]{%
+	\csvloop{
+		file=#1,
+		command=,
+		after reading={\numdef\mycolumncount{\csv@columncount-1}},
+	}%
+}
+\csvset{
+	autotabularcenter/.style={
+		file=#1,
+		after head=\csv@pretable
+		\begin{tabular}{|l|*{\mycolumncount}{>{\centering\arraybackslash}p{5cm}|}}\csv@tablehead,
+			table head=\hline\csvlinetotablerow\\\hline,
+			late after line=\\,
+			table foot=\\\hline,
+			late after last line=\csv@tablefoot
+		\end{tabular}\csv@posttable,
+		command=\csvlinetotablerow},
+}
+\makeatother
+\newcommand{\csvautotabularcenter}[2][]{\csvloop{autotabularcenter={#2},#1}}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -30,14 +58,48 @@
 
 \title{TÌM KIẾM CHUỖI}
 \author{
-	Phan Lộc Sơn 19120033\\
-	Đoàn Kim Huy \\
-	Đỗ Hoài Nam \\
-	Trần Anh Huy
+	Phan Lộc Sơn\\ 19120033
+	\\[3ex]
+	Đoàn Kim Huy\\ 19120239
+	\\[3ex]
+	Đỗ Hoài Nam \\ 19120296
+	\\[3ex]
+	Trần Anh Huy \\ 19120082
 }
 \date{\today}
 \begin{document}
-	\maketitle
+\makeatletter
+\begin{titlepage}
+	\begin{center}
+		\vspace*{1cm}
+		
+		\Huge
+		\textbf{TÌM KIẾM CHUỖI}
+		
+		\vspace{0.5cm}
+		\LARGE
+		Challenge 01
+		
+		\vspace{3.5cm}
+		
+		\@author
+
+		\vfill	
+
+		Cấu trúc Dữ liệu và Giải thuật\\
+		19CNTN
+		
+		\vspace{0.8cm}
+		
+		\Large
+		Khoa Công nghệ Thông tin\\
+		Đại học Khoa học Tự nhiên\\
+		Việt Nam\\
+		23 - 11 - 2020
+		
+	\end{center}
+\end{titlepage}
+\makeatother
 	\part*{TÌM KIẾM CHUỖI}
 	
 	\section{Xác định vấn đề}
@@ -520,5 +582,23 @@
 		\\$\to$ Như vậy, độ phức tạp là: $O(2WH + M(H + W))$ đối với từng từ cần tìm kiếm.
 	\end{itemize}
 	\section{Một số mẫu kiểm tra lời giải}
-	
+	Dưới đây là bảng số liệu nhóm chúng tôi đã thực hiện trên các tập dữ liệu $n \times n$: 5, 10, 20, 50:
+
+	\vspace*{4mm}
+	\docolumncount{Data/Random.csv}{\mycolumncount}
+
+	\centering
+	{
+		\csvautotabularcenter{Data/Random.csv}\\
+		Bảng 1: Số liệu với bộ test được sinh ngẫu nhiên, đơn vị nano second.
+	}
+
+	\vspace*{4mm}
+	\centering
+	{
+		\csvautotabularcenter{Data/Worse.csv}\\
+		Bảng 2: Bảng số liệu với bộ test được sinh xấu nhất, đơn vị nano second.
+	}
+
+
 \end{document}

@@ -1,0 +1,5 @@
+Size,Naive,Rabin-Karp,Knuth-Morris-Pratt
+5,125,178,146
+10,135,147,168
+20,133,175,198
+50,132,218,181
