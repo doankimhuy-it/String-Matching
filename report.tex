@@ -24,7 +24,7 @@
 	autotabularcenter/.style={
 		file=#1,
 		after head=\csv@pretable
-		\begin{tabular}{|l|*{\mycolumncount}{>{\centering\arraybackslash}p{5cm}|}}\csv@tablehead,
+		\begin{tabular}{|l|*{\mycolumncount}{>{\centering\arraybackslash}p{4.5cm}|}}\csv@tablehead,
 			table head=\hline\csvlinetotablerow\\\hline,
 			late after line=\\,
 			table foot=\\\hline,
@@ -433,7 +433,7 @@
 			\vspace*{2mm}
 			\hrule
 			aba\textcolor{red}{b}cababd\\
-			\textcolor{white}{aba}\textcolor{red}{a}babd 						\hspace*{1.2cm} // Tiếp tục so sánh \textit{pattern} với \textit{text} tương tự giải thuật Brute-Force. \\
+			\textcolor{white}{aba}\textcolor{red}{a}babd 						\hspace*{1.2cm} // Tiếp tục so sánh \textit{pattern} với \textit{text} tương tự giải thuật Brute-Force. 
 
 			\vspace*{2mm}
 			\hrule
@@ -584,21 +584,24 @@
 	\section{Một số mẫu kiểm tra lời giải}
 	Dưới đây là bảng số liệu nhóm chúng tôi đã thực hiện trên các tập dữ liệu $n \times n$: 5, 10, 20, 50:
 
-	\vspace*{4mm}
+	\begin{itemize}
 	\docolumncount{Data/Random.csv}{\mycolumncount}
-
-	\centering
-	{
+	\item Bộ dữ liệu ngẫu nhiên:
+	
+	\begin{center}
 		\csvautotabularcenter{Data/Random.csv}\\
 		Bảng 1: Số liệu với bộ test được sinh ngẫu nhiên, đơn vị nano second.
-	}
+		\end{center}
 
-	\vspace*{4mm}
-	\centering
-	{
+	Nhận xét: Ở các bộ dữ liệu nhỏ, Naive nhanh hơn Rabin-Karp và Knuth-Morris-Pratt vì không có bước tiền xử lý.
+
+	\item Bộ dữ liệu xấu nhất:
+	\begin{center}
+	
 		\csvautotabularcenter{Data/Worse.csv}\\
 		Bảng 2: Bảng số liệu với bộ test được sinh xấu nhất, đơn vị nano second.
-	}
+	\end{center}
 
-
+	Nhận xét: Tại bộ dữ liệu xấu nhất, Knuth-Morris-Pratt và Rabin-Karp nhanh hơn Naive
+	\end{itemize}
 \end{document}
