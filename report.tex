@@ -99,7 +99,9 @@
 		
 	\end{center}
 \end{titlepage}
+
 \makeatother
+\tableofcontents
 	\part*{TÌM KIẾM CHUỖI}
 	
 	\section{Xác định vấn đề}
@@ -121,8 +123,8 @@
 	Chi tiết của từng thuật toán sẽ được trình bày bên dưới.
 
 	\section{Một số thuật toán tìm kiếm chuỗi}
-	\begin{enumerate}
-		\item Brute-force 
+
+		\subsection {Brute-force} 
 		
 			Giải thuật Brute-Force, hay còn gọi là vét cạn, 
 			là thuật toán đơn giản nhất trong các thuật toán 
@@ -247,7 +249,7 @@
 				\item Độ phức tạp $O(MN)$. Không cần xin thêm bộ nhớ.
 			\end{itemize}
 
-		\item Rabin-Karp
+		\subsection {Rabin-Karp}
 		
 			Thuật toán Rabin-Karp là một thuật toán được sử dụng để tìm kiếm
 			chuỗi con \textit{pattern} trong chuỗi cha \textit{text} bằng cách sử dụng một hàm băm.
@@ -361,7 +363,7 @@
 				\item Có bước tiền xử lý với độ phức tạp $O(M)$ trước khi bắt đầu tìm kiếm.
 				\item Độ phức tạp $O(MN)$. Chi phí bộ nhớ $O(1)$.
 			\end{itemize}
-		\item Knuth-Morris-Pratt
+		\subsection {Knuth-Morris-Pratt}
 		
 			Giải thuật Knuth-Morris-Pratt, về cơ bản cũng giống như thuật toán Brute-Force, 
 			tuy nhiên, chỉ khác ở chỗ, Brute-Forch khi so sánh \textit{pattern} và \textit{subtext}, Brute-Force so sánh toàn bộ 
@@ -474,13 +476,13 @@
 				
 			Từ ví dụ trên, ta tìm cách thiết kế ý tưởng của KMP để tìm chuỗi 1 cách tổng quát:
 			\begin{itemize}
-				\item Ta thấy rằng, để KMP tìm cách nhảy hiệu quả, cần phải xử lý trước pattern, tìm chuỗi chung vừa là chuỗi đầu, vừa là chuỗi cuối của pattern.
+				\item Ta thấy rằng, để KMP tìm cách dịch \textit{pattern} để so sánh với \textit{text} hiệu quả, cần phải xử lý trước pattern, tìm chuỗi chung vừa là chuỗi đầu, vừa là chuỗi cuối của pattern.
 				Bước này gọi là bước tìm Failure Function, tại mỗi vị trí j trong pattern (0 < j < len(pattern) + 1), tìm độ dài lớn nhất của chuỗi chung và lưu vào mảng $f[]$ để lưu trữ.
 				\item Khi đang so sánh pattern và subtext, ta có thể gặp các trường hợp (0 < i <= len(subtext)): \\
 				1. Nếu pattern[i] = subtext[i], tăng thêm i để so sánh ký tự kế tiếp. \\
-				2. Nếu pattern[i] $\neq$ subtext[i], và i = 1, tức là ký tự đầu của chúng khác nhau, đơn giản là chỉ cần nhảy subtext sang bên phải 1 bước.\\
+				2. Nếu pattern[i] $\neq$ subtext[i], và i = 1, tức là ký tự đầu của chúng khác nhau, đơn giản là chỉ cần dịch \textit{pattern} sang phải 1 ký tự để so sánh vối \textit{subtext} tiếp theo.\\
 				3. Nếu pattern[i] $\neq$ subtext[i], và i > 1, tức là đã có 1 lượng i - 1 ký tự ở trước đã được so sánh đúng, bây giờ là đến lúc cần dùng mảng $f$ đã tính trước ở bên trên, ta lấy f[i - 1] 
-				(chính là độ dài lớn nhất của chuỗi chung của pattern[1, i - 1]) và ta sẽ nhảy subtext 1 lượng min((i - 1) - f[i - 1], 1) để chuẩn bị cho lượt so sánh kế tiếp.
+				(chính là độ dài lớn nhất của chuỗi chung của pattern[1, i - 1]) và ta sẽ dịch \textit{pattern} sang phải một lượng min((i - 1) - f[i - 1], 1) để chuẩn bị cho lượt so sánh kế tiếp.
 			\end{itemize}
 			
 			Từ ý tưởng trên, ta xây dựng mã giả cho thuật toán KMP:
@@ -524,9 +526,9 @@
 						Tiếp tục i++ và j++ và so sánh
 							Nếu j = len(pattern) trả về đã tìm thấy pattern tại vị trí i - j.
 					Nếu pattern[j] != text[i] và j == 1
-						i = i + 1  @//Chuyển nhảy subtext sang phải 1 đơn vị @
+						i = i + 1  @// Dịch pattern sang phải một ký tự @
 					Nếu pattern[j] != text[i] và j > 1
-						j = f[i] và tiếp tục so sánh text[i] và pattern[j] @// sau khi gán j = f[i] (giảm j) thì ta đã cố tình dịch chuyển subtext đang so sánh sang subtext khác!@
+						j = f[i] và tiếp tục so sánh text[i] và pattern[j] @// sau khi gán j = f[i] (giảm j) thì ta đã cố tình dịch pattern tại vị trí đang so sánh sang vị trí khác!@
 				Nếu trong vòng lặp không tìm thấy pattern, ta đã duyệt hết text, trả về -1 báo kết quả không tìm thấy pattern trong text.
 					\end{lstlisting}
 			
@@ -562,7 +564,28 @@
 				\item Độ phức tạp $O(M + N)$. Chi phí bộ nhớ $O(M)$.
 			\end{itemize}
 
-	\end{enumerate}
+	\section{So sánh các thuật toán tìm kiếm chuỗi}
+\begin{center}
+ \begin{tabular}{||m{4cm} | m{4cm} m{4cm}||} 
+ \hline
+ Thuật toán & Tiền xử lý & Tìm kiếm \\ [1ex] 
+ \hline\hline
+ Brute-Force & $0$ & $O((n-m+1)m)$ \\ [1ex] 
+ \hline
+ Rabin-Karp & $\Theta(m)$ & $O((n-m+1)m)$ \\ [1ex] 
+ \hline
+ Knuth-Morris-Pratt & $\Theta(m)$ & $\Theta(n)$ \\ [1ex] 
+ \hline
+\end{tabular}
+\end{center}
+
+Ngoại trừ thuật toán Brute-Force, hai thuật toán còn lại đều có bước tiền xử lý trước khi bắt đầu tìm kiếm. Thời gian chạy của từng thuật toán là tổng của thời gian tiền xử lý và thời gian tìm kiếm.
+
+			\begin{itemize}
+				\item Do không có bước tiền xử lý, thuật toán Brute-Force chạy khá chậm khi phải so sánh lần lượt từng vị trí trong chuỗi.
+				\item Mặc dù trong trường hợp xấu nhất, thuật toán Rabin-Karp cũng không nhanh hơn Brute-Force nhưng trong thực tế lại hoạt động hiệu quả với độ phức tạp tuyến tính.
+				\item Knuth-Morris-Pratt là thuật toán tốt nhất trong 3 thuật toán nêu trên vì có độ phức tạp tuyến tính trong tất cả trường hợp (khắc phục được điểm yếu của Rabin-Karp khi gặp trường hợp xấu nhất).
+			\end{itemize}
 	
 	\part*{TÌM KIẾM CHUỖI TRONG TIN HỌC}
 	\Large {Ví dụ về Crossword game}
@@ -605,4 +628,22 @@
 	Nhận xét: Tại bộ dữ liệu xấu nhất, Knuth-Morris-Pratt và Rabin-Karp nhanh hơn Naive\\
 	Ngoài ra, càng tăng size bộ dữ liệu, tốc độ tăng thời gian của Naive > Rabin-Karp > Knuth-Morris-Pratt (Naive tăng nhanh nhất, Knuth-Morris-Pratt tăng chậm nhất)
 	\end{itemize}
+
+\begin{thebibliography}{99}
+\bibitem{Introduction to Algorithms} 
+Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein, 
+2009
+\textit{Introduction to Algorithms (3rdedition)}. 
+Massachusetts Institute of Technology
+
+\bibitem{RK website 1} 
+Rabin-Karp Algorithm,
+\\\texttt{https://www.programiz.com/dsa/rabin-karp-algorithm}
+
+\bibitem{RK website 2} 
+Rabin-Karp Algorithm for Pattern Searching,
+\\\texttt{https://www.geeksforgeeks.org/rabin-karp-algorithm-for-pattern-searching}
+\end{thebibliography}
+
 \end{document}
+
