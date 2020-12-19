@@ -36,7 +36,6 @@ void Gen_Random_Test(FILE* fin) {
 			char ch = random(65, 90);
 			fprintf(fin, "%c", ch);
 			table[i][j] = ch;
-			//fprintf(fin, "\0");
 			fprintf(fin, "\n");
 		}
 		int startPos = random(1, W / 2);
@@ -71,7 +70,6 @@ void Gen_Naive_Worst_Case_Test(FILE* fin) {
 					fprintf(fin, "%c ", ch1);
 				}
 				fprintf(fin, "%c", ch1);
-				//fprintf(fin, "\0");
 				fprintf(fin, "\n");
 			}
 			else {
@@ -79,7 +77,6 @@ void Gen_Naive_Worst_Case_Test(FILE* fin) {
 					fprintf(fin, "%c ", ch);
 				}
 				fprintf(fin, "%c", ch1);
-				//fprintf(fin, "\0");
 				fprintf(fin, "\n");
 			}
 		}
@@ -87,7 +84,6 @@ void Gen_Naive_Worst_Case_Test(FILE* fin) {
 			fprintf(fin, "%c", ch);
 		}
 		fprintf(fin, "%c", ch1);
-		//fprintf(fin, "\0");
 		fprintf(fin, "\n");
 		
 		fprintf(fin, "#");
@@ -110,7 +106,6 @@ void Gen_RK_Worst_Case_Test(FILE* fin) {
 				fprintf(fin, "%c ", ch);
 			}
 			fprintf(fin, "%c", ch);
-			//fprintf(fin, "\0");
 			fprintf(fin, "\n");
 
 		}
@@ -118,7 +113,6 @@ void Gen_RK_Worst_Case_Test(FILE* fin) {
 		for (int i = 0; i < W / 2 - 1; ++i) {
 			fprintf(fin, "%c", ch);
 		}
-		//fprintf(fin, "\0");
 		fprintf(fin, "\n");
 		fprintf(fin, "#");
 	}
@@ -141,14 +135,12 @@ void Gen_KMP_Worst_Case_Test(FILE* fin) {
 			}
 			char ch = random(65, 90);
 			fprintf(fin, "%c", ch);
-			//fprintf(fin, "\0");
 			fprintf(fin, "\n");
 		}
 		char ch = random(65, 90);
 		for (int i = 0; i < W / 2; ++i) {
 			fprintf(fin, "%c", ch);
 		}
-		//fprintf(fin, "\0");
 		fprintf(fin, "\n");
 		fprintf(fin, "#");
 	}

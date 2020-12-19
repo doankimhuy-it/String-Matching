@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <chrono>
+#include <string>
+#include <vector>
 #include "StringMatching.h"
 #include "TestCases.h"
 
@@ -19,16 +21,15 @@ const char FileOut[] = "OUTPUT.txt";
 
 int main() {
 	srand((int)time(NULL));
-	FILE* fin, *ftmp;
-	fin = fopen(FileIn, "w");
+	FILE* fin;
+	//fin = fopen(FileIn, "w");
 	//Gen_Random_Test(fin);
 	//Gen_Naive_Worst_Case_Test(fin);
 	//Gen_RK_Worst_Case_Test(fin);
-	Gen_KMP_Worst_Case_Test(fin);
-	fclose(fin);
+	//Gen_KMP_Worst_Case_Test(fin);
+	//fclose(fin);
 
 	fin = fopen(FileIn, "r");
-	ftmp = fopen("TMP.txt", "w");
 	int W, H;
 	fscanf(fin, "%d %d", &W, &H);
 	char** table = (char**)malloc(H * sizeof(char*));
@@ -56,6 +57,11 @@ int main() {
 
 	char* word = (char*)malloc(MAXCHAR * sizeof(char));
 	int found = 0;
+	vector<string> words;
+	vector<pair<int, int>> positions;
+	vector<bool> isFound;
+	vector<bool> isLR;
+
 	auto start = high_resolution_clock::now();
 	do {
 		if ((fgets(word, 100, fin) != "\0")) {
@@ -67,12 +73,15 @@ int main() {
 				int prime = 101;
 				for (int i = 0; i < H; ++i) {
 					//int pos = Rabin_Karp_string_match(word, table[i], prime, d);
-					//int pos = Brute_force_string_match(word, table[i]);
-					int pos = KMP_String_match(word, table[i]);
+					int pos = Brute_force_string_match(word, table[i]);
+					//int pos = KMP_String_match(word, table[i]);
 					if (pos != -1) {
 						found++;
-						printf("%s (%d,%d) LR\n", word, i + 1, pos + 1);
-						fprintf(ftmp, "%s (%d,%d) LR\n", word, i + 1, pos + 1);
+						string word1(word);
+						words.push_back(word1);
+						positions.push_back(make_pair(i + 1, pos + 1));
+						isFound.push_back(true);
+						isLR.push_back(true);
 					}
 					else {
 						cntNF++;
@@ -83,19 +92,25 @@ int main() {
 				cntNF = 0;
 				for (int j = 0; j < W; ++j) {
 					//int pos = Rabin_Karp_string_match(word, Transpose_table[j], prime, d);
-					//int pos = Brute_force_string_match(word, Transpose_table[j]);
-					int pos = KMP_String_match(word, Transpose_table[j]);
+					int pos = Brute_force_string_match(word, Transpose_table[j]);
+					//int pos = KMP_String_match(word, Transpose_table[j]);
 
 					if (pos != -1) {
 						found++;
-						printf("%s (%d,%d) TD\n", word, j + 1, pos + 1);
-						fprintf(ftmp, "%s (%d,%d) TD\n", word, j + 1, pos + 1);
+						string word1(word);
+						words.push_back(word1);
+						positions.push_back(make_pair(j + 1, pos + 1));
+						isFound.push_back(true);
+						isLR.push_back(false);
 					}
 					else {
 						cntNF++;
 						if (cntNF == W && found_horizontal == 0) {
-							printf("%s (0,0) NF\n", word);
-							fprintf(ftmp, "%s (0,0) NF\n", word);
+							string word1(word);
+							words.push_back(word1);
+							positions.push_back(make_pair(0, 0));
+							isFound.push_back(false);
+							isLR.push_back(false);
 						}
 					}
 				}
@@ -104,22 +119,26 @@ int main() {
 	} while (strcmp(word, "#") != 0);
 	auto end = high_resolution_clock::now();
 	double Stime = (double)(duration_cast<microseconds>(end - start).count());
-	fclose(ftmp);
-	ftmp = fopen("TMP.txt", "r");
 
-	FILE* fout = fopen(FileOut, "w");
-	fprintf(fout, "%d\n", found);
+	//FILE* ftime = fopen("TIME.txt", "w");
+	//fprintf(ftime, "Execution time: %fmicrosec", Stime);
 
-	fseek(ftmp, 0, SEEK_SET);
-	char c = fgetc(ftmp);
-	while (c != EOF)
-	{
-		fputc(c, fout);
-		c = fgetc(ftmp);
+	printf("%d\n", found);
+	int len = (int)words.size();
+	for (int i = 0; i < len; ++i) {
+		printf("%s (%d,%d) ", words.at(i).c_str(), positions.at(i).first, positions.at(i).second);
+		if (isFound.at(i)) {
+			if (isLR.at(i)) {
+				printf("LR\n");
+			}
+			else {
+				printf("TD\n");
+			}
+		}
+		else {
+			printf("NF\n");
+		}
 	}
-
-	FILE* ftime = fopen("TIME.txt", "w");
-	fprintf(ftime, "Execution time: %fmicrosec", Stime);
 	for (int i = 0; i < H; ++i) {
 		free(table[i]);
 	}
@@ -132,33 +151,6 @@ int main() {
 
 	free(word);
 	fclose(fin);
-	fclose(ftime);
-	fclose(ftmp);
-	fclose(fout);
+	//fclose(ftime);
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
