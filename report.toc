@@ -1,0 +1,11 @@
+\babel@toc {nil}{}
+\contentsline {part}{I\hspace {1em}TÌM KIẾM CHUỖI}{1}%
+\contentsline {section}{\numberline {1}Xác định vấn đề}{1}%
+\contentsline {section}{\numberline {2}Một số thuật toán tìm kiếm chuỗi}{1}%
+\contentsline {subsection}{\numberline {2.1}Brute-force}{1}%
+\contentsline {subsection}{\numberline {2.2}Rabin-Karp}{3}%
+\contentsline {subsection}{\numberline {2.3}Knuth-Morris-Pratt}{5}%
+\contentsline {section}{\numberline {3}So sánh các thuật toán tìm kiếm chuỗi}{7}%
+\contentsline {part}{II\hspace {1em}TÌM KIẾM CHUỖI TRONG TIN HỌC}{8}%
+\contentsline {section}{\numberline {1}Hướng giải Crossword game}{8}%
+\contentsline {section}{\numberline {2}Một số mẫu kiểm tra lời giải}{8}%
