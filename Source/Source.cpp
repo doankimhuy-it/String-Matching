@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-// We use these functions to generate test 
+// We use these functions to generate tests 
 int random(int l, int r);
 void Gen_Random_Test(FILE* fin);
 void Gen_Naive_Worst_Case_Test(FILE* fin);
@@ -25,7 +25,7 @@ void computeLPSArray(char pat[], int M, int lps[]);
 using namespace std;
 using namespace std::chrono;
 
-#define MAXCHAR 100
+#define MAXCHAR 1000  //maximum table size is 1000
 const char FileIn[] = "INPUT.txt";
 const char FileOut[] = "OUTPUT.txt";
 
@@ -74,7 +74,7 @@ int main() {
 
 	auto start = high_resolution_clock::now();
 	do {
-		if ((fgets(word, 100, fin) != "\0")) {
+		if ((fgets(word, MAXCHAR + 1, fin) != "\0")) {
 			if (strcmp(word, "#") != 0) {
 				word[strlen(word) - 1] = '\0';
 				bool found_horizontal = 1;
@@ -186,7 +186,7 @@ int Brute_force_string_match(char pat[], char txt[])
 	return -1;
 }
 
-int Rabin_Karp_string_match(char pat[], char txt[], int q, int d) 
+int Rabin_Karp_string_match(char pat[], char txt[], int q, int d)
 {
 	int M = strlen(pat);
 	int N = strlen(txt);
@@ -332,7 +332,7 @@ int random(int l, int r) {
 
 void Gen_Random_Test(FILE* fin) {
 	if (fin) {
-		int W = 50;
+		int W = 600;
 		//int H = random(1, 10);
 		int H = W;
 		char** table = (char**)malloc(H * sizeof(char*));
@@ -399,7 +399,7 @@ void Gen_Naive_Worst_Case_Test(FILE* fin) {
 		}
 		fprintf(fin, "%c", ch1);
 		fprintf(fin, "\n");
-		
+
 		fprintf(fin, "#");
 	}
 	else {
