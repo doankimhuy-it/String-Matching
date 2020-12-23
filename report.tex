@@ -379,7 +379,7 @@ Chi tiết của từng thuật toán sẽ được trình bày bên dưới.
 			Giải thuật Knuth-Morris-Pratt, về cơ bản cũng giống như thuật toán Brute-Force, 
 			tuy nhiên, chỉ khác ở chỗ, Brute-Forch khi so sánh \textit{pattern} và \textit{subtext}, Brute-Force so sánh toàn bộ 
 			các ký tự của chúng lại từ đầu, còn Knuth-Morris-Pratt, từ lần so sánh trước, sẽ quyết định có so sánh pattern với \textit{subtext} kế tiếp không, 
-			và nếu không sẽ sift bao nhiêu bước để đến lượt so sánh tiếp theo.
+			và nếu không sẽ shift bao nhiêu bước để đến lượt so sánh tiếp theo.
 
 			Để dễ hiểu, ta xét 1 ví dụ như sau: 
 			
@@ -430,12 +430,12 @@ Chi tiết của từng thuật toán sẽ được trình bày bên dưới.
 			\hrule
 			\textcolor{ForestGreen}{abab}\textcolor{red}{c}ababd
 			
-			\textcolor{ForestGreen}{abab}\textcolor{red}{d}			\hspace*{1.2cm} // Không khớp nhau, sift sang phải để tìm kiếm \\
+			\textcolor{ForestGreen}{abab}\textcolor{red}{d}			\hspace*{1.2cm} // Không khớp nhau, shift sang phải để tìm kiếm \\
 																	\hspace*{2.9cm} // So sánh thất bại ở vị trí thứ 5, ta chú ý tới f[4] = 2 > 0 \\
-																	\hspace*{2.9cm} // KMP nói rằng để tối ưu hoá thời gian, ta cần sift tiếp 2 bước.\\
+																	\hspace*{2.9cm} // KMP nói rằng để tối ưu hoá thời gian, ta cần shift tiếp 2 bước.\\
 																	\hspace*{2.9cm} // Để ý rằng f[2] = 0, nên ký tự 1 khác ký tự 2 \\  
 																	\hspace*{2.9cm} // Mà pattern[1] = text[1], pattern[2] = text[2], pattern[1] != pattern[2] \\ 
-																	\hspace*{2.9cm} // => pattern[1] != text[2] => Việc sift 1 bước rồi so sánh là dư thừa.
+																	\hspace*{2.9cm} // => pattern[1] != text[2] => Việc shift 1 bước rồi so sánh là dư thừa.
 
 			\vspace*{2mm}
 			\hrule
@@ -443,10 +443,10 @@ Chi tiết của từng thuật toán sẽ được trình bày bên dưới.
 			
 			\textcolor{white}{ab}\textcolor{ForestGreen}{ab}\textcolor{red}{a}bd 			\hspace*{0.8cm} // Vì ta đã biết f[4] = 2 -> pattern[1, 2] = pattern[3, 4] \\
 																							\hspace*{2.9cm} // Ở lượt trước, ta có pattern[1, 2] = text[1, 2] và pattern[3, 4] = text[3, 4] \\
-																							\hspace*{2.9cm} // Ngoài ra, vừa rồi ta sift 2 bước -> pattern[1, 2] = text[3, 4]\\
+																							\hspace*{2.9cm} // Ngoài ra, vừa rồi ta shift 2 bước -> pattern[1, 2] = text[3, 4]\\
 																							\hspace*{2.9cm} // Tức là ta không cần so sánh 2 ký tự đầu ở lượt này\\
 																							\hspace*{2.9cm} // Vị trí không khớp là \textit{pattern}[3], cùng với f[2] = 0 nên \\
-																							\hspace*{2.9cm} // Bước tiếp theo cần sift sang phải 1 ký tự để tiếp tục so sánh.
+																							\hspace*{2.9cm} // Bước tiếp theo cần shift sang phải 1 ký tự để tiếp tục so sánh.
 
 			\vspace*{2mm}
 			\hrule
@@ -499,9 +499,9 @@ Chi tiết của từng thuật toán sẽ được trình bày bên dưới.
 				\item Ta thấy rằng, để KMP hoạt động, cần phải xử lý trước pattern, chính là tìm Failure Function
 				\item Trong khi tìm kiếm chuỗi, ta có thể dùng 2 biến i và j dùng để duyệt qua text và pattern để so sánh các ký tự trong chúng: \\
 				1. Nếu pattern[j] = text[i], tăng thêm i và j để so sánh ký tự kế tiếp. \\
-				2. Nếu pattern[j] $\neq$ text[i], và j = 1, tức là ký tự đầu của chúng khác nhau, ta chỉ cần sift chuỗi so sánh chuỗi con kế tiếp.\\
+				2. Nếu pattern[j] $\neq$ text[i], và j = 1, tức là ký tự đầu của chúng khác nhau, ta chỉ cần shift chuỗi so sánh chuỗi con kế tiếp.\\
 				3. Nếu pattern[j] $\neq$ text[i], và j > 1, tức là đã có 1 lượng j - 1 ký tự ở trước đã được so sánh đúng, ta lấy f[i - 1] 
-				và và sift chuỗi với số bước là min((i - 1) - f[i - 1], 1) để chuẩn bị cho lượt so sánh kế tiếp.
+				và và shift chuỗi với số bước là min((i - 1) - f[i - 1], 1) để chuẩn bị cho lượt so sánh kế tiếp.
 			\end{itemize}
 			
 			Từ ý tưởng trên, ta xây dựng mã giả cho thuật toán KMP:
@@ -545,7 +545,7 @@ Chi tiết của từng thuật toán sẽ được trình bày bên dưới.
 						Tiếp tục i++ và j++ và so sánh
 							Nếu j = len(pattern) trả về đã tìm thấy pattern tại vị trí i - j.
 					Nếu pattern[j] != text[i] và j == 1
-						i = i + 1  @// sift sang phải 1 bước @
+						i = i + 1  @// shift sang phải 1 bước @
 					Nếu pattern[j] != text[i] và j > 1
 						j = f[i] và tiếp tục so sánh text[i] và pattern[j] 
 				Nếu trong vòng lặp không tìm thấy pattern, ta đã duyệt hết text, trả về -1 báo kết quả không tìm thấy pattern trong text.
